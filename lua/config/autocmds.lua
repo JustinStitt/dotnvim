@@ -12,3 +12,4 @@ vim.cmd([[
 vim.cmd([[
   autocmd InsertLeave * set listchars+=trail:•
 ]])
+

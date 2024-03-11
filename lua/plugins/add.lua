@@ -57,4 +57,5 @@ return {
     end,
   },
   { "tiagovla/scope.nvim" },
+  {"tpope/vim-fugitive"},
 }

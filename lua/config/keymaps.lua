@@ -8,20 +8,39 @@ vim.keymap.set({ "n" }, "gr", require("telescope.builtin").lsp_references)
 vim.keymap.set({ "n" }, "gd", require("telescope.builtin").lsp_definitions)
 vim.keymap.set({ "n" }, "gI", require("telescope.builtin").lsp_implementations)
 vim.keymap.set({ "n" }, ",r", require("telescope.builtin").resume)
-vim.keymap.set("n", "<C-Space>", vim.diagnostic.open_float, { noremap = true, silent = true })
+-- vim.keymap.set(
+--   "n",
+--   "<C-Space>",
+--   vim.diagnostic.open_float,
+--   { noremap = true, silent = true }
+-- )
 vim.keymap.set({ "n" }, "<C-p>", "<C-i>", { noremap = true })
 vim.keymap.set({ "i" }, "<M-c>", "/**/<left><left>  <left>", { remap = true })
-vim.keymap.set("n", "J", "$<left> :m .+1<CR>==", { silent = true })
-vim.keymap.set("n", "K", "$<left> :m .-2<CR>==", { silent = true })
+-- vim.keymap.set("n", "J", "$<left> :m .+1<CR>==", { silent = true })
+-- vim.keymap.set(
+--   "n",
+--   "K",
+--   "$<left> :m .-2<CR>==",
+--   { silent = true, noremap = true }
+-- ) -- this is broken with LazyVim, just use visual mode I guess
+
 vim.keymap.set({ "x", "v" }, "<BS>", "<left>", { noremap = true })
 vim.keymap.set("n", "P", '"0p', { silent = true })
 vim.keymap.set({ "x", "v" }, "J", " :m '>+<cr>gv=gv<left>")
-vim.keymap.set({ "x", "v" }, "K", " :m '<-2<CR>gv=gv<left>")
+vim.keymap.set({ "x", "v" }, "K", " :m '<-2<CR>gv=gv<left>", { noremap = true })
 vim.keymap.set({ "n" }, "zF", "zMzOzz", { noremap = true })
 vim.keymap.set("v", "/", "<esc>/\\%V") -- search within selection
 vim.keymap.set({ "n" }, ",mk", "oCc: Kees Cook <keescook@chromium.org>")
-vim.keymap.set({ "n" }, ",mn", "oCc: Nick Desaulniers <ndesaulniers@google.com>")
-vim.keymap.set({ "n" }, ",mj", "oReviewed-by: Justin Stitt <justinstitt@google.com>")
+vim.keymap.set(
+  { "n" },
+  ",mn",
+  "oCc: Nick Desaulniers <ndesaulniers@google.com>"
+)
+vim.keymap.set(
+  { "n" },
+  ",mj",
+  "oReviewed-by: Justin Stitt <justinstitt@google.com>"
+)
 vim.keymap.set({ "n" }, ",mJ", "ggOHi,<cr><Esc>Go<cr>Thanks<cr>Justin<Esc>")
 vim.keymap.set({ "n" }, ",mN", "oCc: Nathan Chancellor <nathan@kernel.org>")
 vim.keymap.set({ "n" }, ",mh", "oCc: linux-hardening@vger.kernel.org")
@@ -64,7 +83,11 @@ vim.keymap.set("i", "<C-h>", "<left>")
 vim.keymap.set("n", "<S-h>", "<cmd>:FocusSplitCycle reverse<cr>")
 vim.keymap.set("n", "<C-l>", "<C-w>p")
 vim.keymap.set("t", "<C-l>", "<C-l>") -- allows clearing of terminal when in ToggleTerm
+vim.keymap.set("t", "<C-k>", "<C-k>")
+vim.keymap.set("t", "<C-j>", "<C-j>")
 vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
 vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")
 vim.keymap.set("n", "<leader>le", "<cmd>:Telescope quickfix<cr>")
+local cmp = require("cmp")
+vim.keymap.set("i", "<C-Space>", cmp.mapping.close())

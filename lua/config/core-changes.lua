@@ -34,11 +34,10 @@ return {
         ["<C-k>"] = cmp.mapping.select_prev_item({
           behavior = cmp.SelectBehavior.Insert,
         }),
-        -- everything below this comment is actually straight from the core, unmodified, but I might want to modify select=true later.
-        ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.abort(),
+        ["<C-u>"] = cmp.mapping.scroll_docs(-4),
+        ["<C-d>"] = cmp.mapping.scroll_docs(4),
+        ["<Tab>"] = cmp.mapping.complete(),
+        ["<C-Space>"] = cmp.mapping.abort(),
         ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
         ["<S-CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,

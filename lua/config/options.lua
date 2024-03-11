@@ -8,3 +8,4 @@ vim.opt.relativenumber = false
 -- as per https://github.com/folke/edgy.nvim
 vim.opt.laststatus = 3
 vim.opt.splitkeep = "screen"
+vim.opt.cursorline = true
