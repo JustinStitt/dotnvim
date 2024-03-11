@@ -1,6 +1,7 @@
 -- My personal changes to the LazyVim Core plugins
 local actions = require("telescope.actions")
 local cmp = require("cmp")
+local Util = require("lazyvim.util")
 
 return {
   { -- Support <C-j> and <C-k> for Telescope scrolling
@@ -19,13 +20,20 @@ return {
         },
       },
     },
+    keys = {
+      { "<leader>st", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+    },
   },
   { -- I want <C-j> and <C-k> to scroll the cmp menu
     "hrsh7th/nvim-cmp",
     opts = {
       mapping = cmp.mapping.preset.insert({
-        ["<C-j>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-        ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+        ["<C-j>"] = cmp.mapping.select_next_item({
+          behavior = cmp.SelectBehavior.Insert,
+        }),
+        ["<C-k>"] = cmp.mapping.select_prev_item({
+          behavior = cmp.SelectBehavior.Insert,
+        }),
         -- everything below this comment is actually straight from the core, unmodified, but I might want to modify select=true later.
         ["<C-b>"] = cmp.mapping.scroll_docs(-4),
         ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -49,6 +57,54 @@ return {
       incremental_selection = {
         enable = false,
       },
+    },
+  },
+  -- add my favorite colorscheme
+  {
+    "rebelot/kanagawa.nvim",
+    opts = {
+      compile = false,
+      undercurl = true, -- enable undercurls
+      commentStyle = { italic = false },
+      functionStyle = { bold = true },
+      keywordStyle = { italic = false },
+      statementStyle = { bold = true },
+      typeStyle = {},
+      variablebuiltinStyle = { italic = false },
+      specialReturn = false, -- special highlight for the return keyword
+      dimInactive = true,
+      colors = {
+        theme = {
+          all = {
+            ui = {
+              bg_gutter = "none",
+            },
+          },
+        },
+      },
+    },
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "kanagawa",
+    },
+  },
+  {
+    "folke/flash.nvim",
+    opts = {
+      modes = {
+        search = {
+          enabled = false, -- just annoying, mostly.
+        },
+      },
+    },
+  },
+  {
+    "folke/todo-comments.nvim",
+    keys = {
+      { "<leader>sT", "<cmd>TodoTelescope<cr>", desc = "Todo" },
+      { "<leader>st", false },
     },
   },
 }

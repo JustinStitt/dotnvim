@@ -65,3 +65,6 @@ vim.keymap.set("n", "<S-h>", "<cmd>:FocusSplitCycle reverse<cr>")
 vim.keymap.set("n", "<C-l>", "<C-w>p")
 vim.keymap.set("t", "<C-l>", "<C-l>") -- allows clearing of terminal when in ToggleTerm
 vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
+vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
+vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")
+vim.keymap.set("n", "<leader>le", "<cmd>:Telescope quickfix<cr>")

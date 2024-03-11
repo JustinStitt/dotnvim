@@ -2,3 +2,9 @@
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
 vim.g.mapleader = ","
+vim.opt.relativenumber = false
+
+-- good options for edgy.nvim
+-- as per https://github.com/folke/edgy.nvim
+vim.opt.laststatus = 3
+vim.opt.splitkeep = "screen"
