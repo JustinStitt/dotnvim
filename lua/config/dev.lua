@@ -26,7 +26,6 @@ vim.cmd([[
 
 function EnterLinuxMode()
   vim.cmd([[ hi TAB guibg=#23232f ]])
-  disable_format_on_save()
   vim.cmd([[ set noexpandtab ]])
   vim.cmd([[ set shiftwidth=8 ]])
   vim.cmd([[ set tabstop=8 ]])
@@ -35,8 +34,26 @@ end
 
 vim.api.nvim_create_autocmd(
   "BufRead",
-  { pattern = "*.c", command = "lua EnterLinuxMode()" }
+  { pattern = "*.c", callback = function()
+    local cwd = vim.fn.getcwd()
+    if (string.find(cwd, "linux")) then
+      EnterLinuxMode()
+    end
+  end
+  }
 )
+
+vim.api.nvim_create_autocmd(
+  "BufRead",
+  { pattern = "*.h", callback = function()
+    local cwd = vim.fn.getcwd()
+    if (string.find(cwd, "linux")) then
+      EnterLinuxMode()
+    end
+  end
+  }
+)
+
 
 vim.api.nvim_create_autocmd(
   "BufRead",

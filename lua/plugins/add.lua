@@ -57,5 +57,6 @@ return {
     end,
   },
   { "tiagovla/scope.nvim" },
-  {"tpope/vim-fugitive"},
+  { "tpope/vim-fugitive" },
+  { "hiphish/rainbow-delimiters.nvim" },
 }
