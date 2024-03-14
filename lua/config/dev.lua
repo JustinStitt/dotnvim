@@ -57,11 +57,6 @@ vim.api.nvim_create_autocmd(
 
 vim.api.nvim_create_autocmd(
   "BufRead",
-  { pattern = "*.h", command = "lua EnterLinuxMode()" }
-)
-
-vim.api.nvim_create_autocmd(
-  "BufRead",
   { pattern = "Makefile", command = "lua EnterLinuxMode()" }
 )
 

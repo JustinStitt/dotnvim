@@ -91,3 +91,14 @@ vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")
 vim.keymap.set("n", "<leader>le", "<cmd>:Telescope quickfix<cr>")
 local cmp = require("cmp")
 vim.keymap.set("i", "<C-Space>", cmp.mapping.close())
+vim.keymap.set(
+  "n",
+  "<C-Space>",
+  vim.diagnostic.open_float,
+  { noremap = true, silent = true }
+)
+
+vim.keymap.set("n", "<leader>gs", "<cmd>:Gitsigns stage_hunk<CR>")
+vim.keymap.set("n", "<leader>gr", "<cmd>:Gitsigns reset_hunk<CR>")
+vim.keymap.set("n", "<leader>gj", "<cmd>:Gitsigns next_hunk<CR>")
+vim.keymap.set("n", "<leader>gk", "<cmd>:Gitsigns prev_hunk<CR>")

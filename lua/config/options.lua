@@ -3,9 +3,7 @@
 -- Add any additional options here
 vim.g.mapleader = ","
 vim.opt.relativenumber = false
-
--- good options for edgy.nvim
--- as per https://github.com/folke/edgy.nvim
-vim.opt.laststatus = 3
-vim.opt.splitkeep = "screen"
 vim.opt.cursorline = true
+
+vim.g.mkdp_port = "56777"
+vim.g.mkdp_echo_preview_url = 1
