@@ -8,12 +8,6 @@ vim.keymap.set({ "n" }, "gr", require("telescope.builtin").lsp_references)
 vim.keymap.set({ "n" }, "gd", require("telescope.builtin").lsp_definitions)
 vim.keymap.set({ "n" }, "gI", require("telescope.builtin").lsp_implementations)
 vim.keymap.set({ "n" }, ",r", require("telescope.builtin").resume)
--- vim.keymap.set(
---   "n",
---   "<C-Space>",
---   vim.diagnostic.open_float,
---   { noremap = true, silent = true }
--- )
 vim.keymap.set({ "n" }, "<C-p>", "<C-i>", { noremap = true })
 vim.keymap.set({ "i" }, "<M-c>", "/**/<left><left>  <left>", { remap = true })
 -- vim.keymap.set("n", "J", "$<left> :m .+1<CR>==", { silent = true })
@@ -56,14 +50,9 @@ vim.keymap.set("n", "q>>", "<cmd>:BufferLineMoveNext<cr>")
 vim.keymap.set("n", "q<<", "<cmd>:BufferLineMovePrev<cr>")
 vim.keymap.set("n", "-", "<cmd>:split<cr>")
 vim.keymap.set("n", "|", "<cmd>:vsplit<cr>")
-vim.keymap.set("n", "<C-b>", "<cmd>:Neotree position=left toggle dir=./<cr>")
+-- vim.keymap.set("n", "<C-b>", "<cmd>:lua MiniFiles.open()<cr>")
 vim.keymap.set("n", "<C-j>", "<C-e>")
 vim.keymap.set("n", "<C-k>", "<C-y>")
--- lvim.keys.normal_mode["s"] = ":HopChar1<cr>"
--- lvim.keys.normal_mode["qs"] = ":HopChar1MW<cr>"
--- lvim.keys.normal_mode["<leader>u"] = "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>"
--- lvim.keys.normal_mode["<leader><leader>c"] = "<Cmd>:Copilot panel<cr>"
--- lvim.keys.normal_mode["<C-h>"] = "<Cmd>:SymbolsOutline<cr>"
 vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "<C-h>", "<left>")
 
@@ -77,7 +66,7 @@ vim.cmd([[
 
 vim.keymap.set("n", "s", "<cmd>:HopChar1<cr>")
 vim.keymap.set("n", "qs", "<cmd>:HopChar1MW<cr>")
-vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
+-- vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
 vim.keymap.set("i", "<C-l>", "<right>")
 vim.keymap.set("i", "<C-h>", "<left>")
 vim.keymap.set("n", "<S-h>", "<cmd>:FocusSplitCycle reverse<cr>")
@@ -102,3 +91,40 @@ vim.keymap.set("n", "<leader>gs", "<cmd>:Gitsigns stage_hunk<CR>")
 vim.keymap.set("n", "<leader>gr", "<cmd>:Gitsigns reset_hunk<CR>")
 vim.keymap.set("n", "<leader>gj", "<cmd>:Gitsigns next_hunk<CR>")
 vim.keymap.set("n", "<leader>gk", "<cmd>:Gitsigns prev_hunk<CR>")
+vim.keymap.set("n", "<leader>gB", "<cmd>:Git blame<cr>")
+vim.keymap.set("n", "<leader>sB", "<cmd>:Telescope buffers<cr>")
+vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
+vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
+vim.keymap.set("n", "<leader>;", "<cmd>:Dashboard<cr>")
+
+local function smart_exclude_window_navigation(direction)
+  vim.cmd("wincmd " .. direction)
+  local bufname = vim.api.nvim_buf_get_name(0)
+
+  if string.find(bufname, "neo%-tree") then
+    if direction == "w" then
+      smart_exclude_window_navigation(direction)
+    else
+      vim.cmd("wincmd p")
+    end
+  end
+end
+
+vim.keymap.set("n", "<S-l>", function()
+  smart_exclude_window_navigation("w")
+end)
+
+-- when pressing <C-b>, instead of closing neotree simply go back to previous window
+local function smart_leave_neotree()
+  local bufname = vim.api.nvim_buf_get_name(0)
+  if string.find(bufname, "neo%-tree") then
+    vim.cmd("wincmd p") -- previous window
+  else
+    vim.cmd("Neotree reveal_force_cwd filesystem left")
+  end
+end
+vim.keymap.set("n", "<C-b>", function()
+  smart_leave_neotree()
+end)
+vim.keymap.set("n", "<C-m>", "<cmd>:WindowsMaximize<cr>")
+vim.keymap.set("n", "<C-n>", "<cmd>:WindowsEqualize<cr>")

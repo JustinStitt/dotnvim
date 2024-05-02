@@ -21,7 +21,16 @@ return {
       },
     },
     keys = {
-      { "<leader>st", Util.telescope("live_grep"), desc = "Grep (root dir)" },
+      {
+        "<leader>st",
+        Util.telescope("live_grep", { cwd = false }),
+        desc = "Grep (root dir)",
+      },
+      {
+        "<leader>sf",
+        Util.telescope("files", { cwd = false }),
+        desc = "Find Files (cwd)",
+      },
     },
   },
   { -- I want <C-j> and <C-k> to scroll the cmp menu
@@ -104,6 +113,35 @@ return {
     keys = {
       { "<leader>sT", "<cmd>TodoTelescope<cr>", desc = "Todo" },
       { "<leader>st", false },
+    },
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      hijack_netrw_behavior = "disabled",
+      close_if_last_window = true,
+    },
+    dependencies = {
+      {
+        's1n7ax/nvim-window-picker',
+        version = '*',
+        config = function()
+          require 'window-picker'.setup({
+            hint = 'floating-big-letter',
+            filter_rules = {
+              include_current_win = false,
+              autoselect_one = true,
+              -- filter using buffer options
+              bo = {
+                  -- if the file type is one of following, the window will be ignored
+                  filetype = { 'neo-tree', "neo-tree-popup", "notify" },
+                  -- if the buffer type is one of following, the window will be ignored
+                  buftype = { 'terminal', "quickfix" },
+              },
+            },
+          })
+        end,
+      },
     },
   },
 }

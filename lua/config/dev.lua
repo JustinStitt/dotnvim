@@ -29,7 +29,7 @@ function EnterLinuxMode()
   vim.cmd([[ set noexpandtab ]])
   vim.cmd([[ set shiftwidth=8 ]])
   vim.cmd([[ set tabstop=8 ]])
-  vim.cmd([[ set nolist ]])
+  -- vim.cmd([[ set nolist ]])
 end
 
 vim.api.nvim_create_autocmd(
@@ -98,3 +98,8 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
 vim.keymap.set("n" , "<leader>lf", function()
   disable_format_on_save()
 end, { noremap = true })
+
+vim.api.nvim_command([[
+  set listchars=tab:\ \ 
+]])
+

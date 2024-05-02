@@ -68,4 +68,22 @@ return {
       vim.fn["mkdp#util#install"]()
     end,
   },
+  {
+    "stevearc/oil.nvim",
+    opts = {},
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+  { "s1n7ax/nvim-window-picker" },
+  { "anuvyklack/windows.nvim",
+   dependencies = {
+      "anuvyklack/middleclass",
+      "anuvyklack/animation.nvim"
+   },
+   config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+      require('windows').setup()
+   end
+}
 }
