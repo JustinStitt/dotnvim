@@ -8,6 +8,10 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
+        layout_strategy = "vertical",
+        layout_config = {
+          vertical = { height = 0.95, width = 0.9 },
+        },
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,
@@ -123,20 +127,20 @@ return {
     },
     dependencies = {
       {
-        's1n7ax/nvim-window-picker',
-        version = '*',
+        "s1n7ax/nvim-window-picker",
+        version = "*",
         config = function()
-          require 'window-picker'.setup({
-            hint = 'floating-big-letter',
+          require("window-picker").setup({
+            hint = "floating-big-letter",
             filter_rules = {
               include_current_win = false,
               autoselect_one = true,
               -- filter using buffer options
               bo = {
-                  -- if the file type is one of following, the window will be ignored
-                  filetype = { 'neo-tree', "neo-tree-popup", "notify" },
-                  -- if the buffer type is one of following, the window will be ignored
-                  buftype = { 'terminal', "quickfix" },
+                -- if the file type is one of following, the window will be ignored
+                filetype = { "neo-tree", "neo-tree-popup", "notify" },
+                -- if the buffer type is one of following, the window will be ignored
+                buftype = { "terminal", "quickfix" },
               },
             },
           })

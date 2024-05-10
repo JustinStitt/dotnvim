@@ -74,6 +74,8 @@ vim.keymap.set("n", "<C-l>", "<C-w>p")
 vim.keymap.set("t", "<C-l>", "<C-l>") -- allows clearing of terminal when in ToggleTerm
 vim.keymap.set("t", "<C-k>", "<C-k>")
 vim.keymap.set("t", "<C-j>", "<C-j>")
+vim.keymap.set("t", "jk", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+
 vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
 vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")

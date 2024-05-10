@@ -20,7 +20,11 @@ return {
     keys = {
       { "<C-h>", "<cmd>:Outline<CR>", desc = "Toggle outline" },
     },
-    opts = {},
+    opts = {
+      outline_window = {
+        width = 20,
+      },
+    },
   },
   { "sindrets/winshift.nvim" },
   {
@@ -74,16 +78,27 @@ return {
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
   { "s1n7ax/nvim-window-picker" },
-  { "anuvyklack/windows.nvim",
-   dependencies = {
+  {
+    "anuvyklack/windows.nvim",
+    dependencies = {
       "anuvyklack/middleclass",
-      "anuvyklack/animation.nvim"
-   },
-   config = function()
+      "anuvyklack/animation.nvim",
+    },
+    config = function()
       vim.o.winwidth = 10
       vim.o.winminwidth = 10
       vim.o.equalalways = false
-      require('windows').setup()
-   end
-}
+      require("windows").setup({
+        ignore = { -- |windows.ignore|
+          buftype = { "quickfix", "nofile" },
+          filetype = { "NvimTree", "neo-tree", "undotree", "gundo" },
+        },
+      })
+    end,
+  },
+  {
+    "axkirillov/hbac.nvim",
+    config = true,
+  },
+  { "chomosuke/term-edit.nvim" },
 }
