@@ -4,6 +4,7 @@
 vim.g.mapleader = ","
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
+vim.opt.statuscolumn = ""
 
 vim.g.mkdp_port = "56777"
 vim.g.mkdp_echo_preview_url = 1

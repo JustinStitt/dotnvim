@@ -12,6 +12,10 @@ vim.api.nvim_command([[
   " set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
 ]])
 
+vim.api.nvim_command([[
+  highlight FlashCursor guibg=red
+]])
+
 vim.cmd([[
   match Space /\s/
 ]])
@@ -32,28 +36,25 @@ function EnterLinuxMode()
   -- vim.cmd([[ set nolist ]])
 end
 
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  { pattern = "*.c", callback = function()
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "*.c",
+  callback = function()
     local cwd = vim.fn.getcwd()
-    if (string.find(cwd, "linux")) then
+    if string.find(cwd, "linux") then
       EnterLinuxMode()
     end
-  end
-  }
-)
+  end,
+})
 
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  { pattern = "*.h", callback = function()
+vim.api.nvim_create_autocmd("BufRead", {
+  pattern = "*.h",
+  callback = function()
     local cwd = vim.fn.getcwd()
-    if (string.find(cwd, "linux")) then
+    if string.find(cwd, "linux") then
       EnterLinuxMode()
     end
-  end
-  }
-)
-
+  end,
+})
 
 vim.api.nvim_create_autocmd(
   "BufRead",
@@ -95,11 +96,10 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-vim.keymap.set("n" , "<leader>lf", function()
+vim.keymap.set("n", "<leader>lf", function()
   disable_format_on_save()
 end, { noremap = true })
 
 vim.api.nvim_command([[
   set listchars=tab:\ \ 
 ]])
-

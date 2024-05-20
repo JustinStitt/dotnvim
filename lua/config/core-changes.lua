@@ -67,7 +67,12 @@ return {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       incremental_selection = {
-        enable = false,
+        enable = true,
+        keymaps = {
+          init_selection = "<leader>-",
+          node_incremental = "v",
+          node_decremental = "V",
+        },
       },
     },
   },
@@ -146,6 +151,12 @@ return {
           })
         end,
       },
+    },
+  },
+  {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      numhl = true,
     },
   },
 }

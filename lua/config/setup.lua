@@ -48,6 +48,9 @@ require("nvim-surround").setup()
 require("scope").setup({})
 
 require("oil").setup({
+  view_options = {
+    show_hidden = true,
+  },
   keymaps = {
     ["g?"] = "actions.show_help",
     ["<CR>"] = "actions.select",
