@@ -82,16 +82,27 @@ vim.api.nvim_create_autocmd(
 )
 
 function disable_format_on_save()
-  vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>:noa w<cr>")
-  vim.g.autoformat = false
+  if vim.g.autoformat == true then
+    -- vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>:noa w<cr>")
+    vim.g.autoformat = false
+  end
 end
 
-vim.api.nvim_create_autocmd("BufWinEnter", {
+function enable_format_on_save()
+  if vim.g.autoformat == false then
+    -- vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>:w<cr>")
+    vim.g.autoformat = true
+  end
+end
+
+vim.api.nvim_create_autocmd("BufWrite", {
   pattern = "*",
   callback = function()
     local cwd = vim.fn.getcwd()
     if string.find(cwd, "llvm") or (string.find(cwd, "linux")) then
       disable_format_on_save()
+    else
+      enable_format_on_save()
     end
   end,
 })

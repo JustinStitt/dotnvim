@@ -19,7 +19,7 @@ vim.keymap.set({ "i" }, "<M-c>", "/**/<left><left>  <left>", { remap = true })
 -- ) -- this is broken with LazyVim, just use visual mode I guess
 
 vim.keymap.set({ "x", "v" }, "<BS>", "<left>", { noremap = true })
-vim.keymap.set("n", "P", '"0p', { silent = true })
+-- vim.keymap.set("n", "P", '"0p', { silent = true })
 vim.keymap.set({ "x", "v" }, "J", " :m '>+<cr>gv=gv<left>")
 vim.keymap.set({ "x", "v" }, "K", " :m '<-2<CR>gv=gv<left>", { noremap = true })
 vim.keymap.set({ "n" }, "zF", "zMzOzz", { noremap = true })
@@ -58,7 +58,6 @@ vim.keymap.set("i", "jk", "<Esc>")
 vim.keymap.set("i", "<C-h>", "<left>")
 
 vim.keymap.set("x", "<Space>", "<Esc>")
-vim.keymap.set("n", ",c", "<cmd>:bd<cr>")
 
 vim.cmd([[
   nnoremap * #
@@ -76,6 +75,10 @@ vim.keymap.set("t", "<C-l>", "<C-l>") -- allows clearing of terminal when in Tog
 vim.keymap.set("t", "<C-k>", "<C-k>")
 vim.keymap.set("t", "<C-j>", "<C-j>")
 vim.keymap.set("t", "jk", "<c-\\><c-n>", { desc = "Enter Normal Mode" })
+vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
+vim.keymap.set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
+vim.keymap.set("n", "(", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", ")", "<Plug>(YankyNextEntry)")
 
 vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
 vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
@@ -145,5 +148,5 @@ end
 vim.keymap.set("n", "<C-b>", function()
   smart_leave_neotree()
 end)
-vim.keymap.set("n", "<C-m>", "<cmd>:WindowsMaximize<cr>")
+vim.keymap.set("n", "=", "<cmd>:WindowsMaximize<cr>")
 vim.keymap.set("n", "<C-n>", "<cmd>:WindowsEqualize<cr>")

@@ -89,6 +89,9 @@ return {
       vim.o.winminwidth = 10
       vim.o.equalalways = false
       require("windows").setup({
+        autowidth = {
+          enable = false,
+        },
         ignore = { -- |windows.ignore|
           buftype = { "quickfix", "nofile" },
           filetype = { "NvimTree", "neo-tree", "undotree", "gundo" },
@@ -97,8 +100,17 @@ return {
     end,
   },
   {
-    "axkirillov/hbac.nvim",
+    "chrisgrieser/nvim-early-retirement",
     config = true,
+    event = "VeryLazy",
+    opts = {
+      retirementAgeMins = 10,
+      minimumBufferNum = 5,
+      deleteBufferWhenFileDeleted = true,
+    },
   },
-  { "chomosuke/term-edit.nvim" },
+  {
+    "gbprod/yanky.nvim",
+    opts = {},
+  },
 }
