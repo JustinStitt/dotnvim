@@ -35,6 +35,11 @@ return {
         Util.telescope("files", { cwd = false }),
         desc = "Find Files (cwd)",
       },
+      {
+        "<leader>se",
+        Util.telescope("git_status", { cwd = false }),
+        desc = "Search Git Status Files",
+      },
     },
   },
   { -- I want <C-j> and <C-k> to scroll the cmp menu
@@ -76,8 +81,20 @@ return {
       },
     },
   },
-  -- add my favorite colorscheme
-  {
+  -- add my favorite colorschemes
+  { -- light mode
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    opts = {
+      dim_inactive = {
+        enabled = true, -- dims the background color of inactive window
+        shade = "dark",
+        percentage = 0.15, -- percentage of the shade to apply to the inactive window
+      },
+    },
+  },
+  { -- dark mode
     "rebelot/kanagawa.nvim",
     opts = {
       compile = false,
@@ -90,6 +107,11 @@ return {
       variablebuiltinStyle = { italic = false },
       specialReturn = false, -- special highlight for the return keyword
       dimInactive = true,
+      theme = "wave", -- Load "wave" theme when 'background' option is not set
+      background = { -- map the value of 'background' option to a theme
+        dark = "wave", -- try "dragon" !
+        light = "lotus",
+      },
       colors = {
         theme = {
           all = {
@@ -104,7 +126,9 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa",
+      colorscheme = "kanagawa-wave", -- dark mode
+      -- colorscheme = "catppuccin-latte", -- light mode
+      -- colorscheme = "kanagawa-wave", -- dark mode
     },
   },
   {
@@ -174,6 +198,12 @@ return {
     "lewis6991/gitsigns.nvim",
     opts = {
       numhl = true,
+    },
+  },
+  {
+    "neovim/nvim-lspconfig",
+    opts = {
+      inlay_hints = { enabled = false },
     },
   },
 }

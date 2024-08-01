@@ -48,7 +48,8 @@ vim.keymap.set("n", "<Tab>", "<cmd>:BufferLineCycleNext<cr>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>:BufferLineCyclePrev<cr>")
 vim.keymap.set("n", "q>>", "<cmd>:BufferLineMoveNext<cr>")
 vim.keymap.set("n", "q<<", "<cmd>:BufferLineMovePrev<cr>")
-vim.keymap.set("n", "\\", "<cmd>:BufferLinePick<cr>")
+vim.keymap.set("n", "<leader>ce", "<cmd>:lua EnterLinuxMode()<cr>")
+vim.keymap.set("n", "<leader>\\", "<cmd>:BufferLinePick<cr>")
 vim.keymap.set("n", "-", "<cmd>:split<cr>")
 vim.keymap.set("n", "|", "<cmd>:vsplit<cr>")
 -- vim.keymap.set("n", "<C-b>", "<cmd>:lua MiniFiles.open()<cr>")
@@ -101,7 +102,10 @@ vim.keymap.set("n", "<leader>gB", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gb", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gd", "<cmd>:Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "<leader>sB", "<cmd>:Telescope buffers<cr>")
-vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
+-- vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
+vim.keymap.set("n", "<leader>so", function()
+  require("telescope").extensions.smart_open.smart_open()
+end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>;", "<cmd>:Dashboard<cr>")
 vim.keymap.set("n", "Q", function()
@@ -150,3 +154,39 @@ vim.keymap.set("n", "<C-b>", function()
 end)
 vim.keymap.set("n", "=", "<cmd>:WindowsMaximize<cr>")
 vim.keymap.set("n", "<C-n>", "<cmd>:WindowsEqualize<cr>")
+
+-- HARPOON
+local harpoon = require("harpoon")
+local extensions = require("harpoon.extensions")
+harpoon:setup({})
+harpoon:extend(extensions.builtins.navigate_with_number())
+vim.keymap.set("n", "<leader>a", function()
+  harpoon:list():add()
+end, { desc = "[a]dd To Harpoon List" })
+vim.keymap.set("n", "\\", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end)
+-- END HARPOON
+--
+vim.keymap.set("n", "<leader>th", function()
+  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { desc = "[T]oggle Inlay [H]ints" })
+
+vim.keymap.set(
+  { "n", "o", "x" },
+  "w",
+  "<cmd>lua require('spider').motion('w', {subwordMovement=true})<CR>",
+  { desc = "Spider-w" }
+)
+vim.keymap.set(
+  { "n", "o", "x" },
+  "e",
+  "<cmd>lua require('spider').motion('e')<CR>",
+  { desc = "Spider-e" }
+)
+vim.keymap.set(
+  { "n", "o", "x" },
+  "b",
+  "<cmd>lua require('spider').motion('b')<CR>",
+  { desc = "Spider-b" }
+)

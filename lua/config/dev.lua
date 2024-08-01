@@ -29,29 +29,40 @@ vim.cmd([[
 ]])
 
 function EnterLinuxMode()
-  vim.cmd([[ hi TAB guibg=#23232f ]])
-  vim.cmd([[ set noexpandtab ]])
-  vim.cmd([[ set shiftwidth=8 ]])
-  vim.cmd([[ set tabstop=8 ]])
-  -- vim.cmd([[ set nolist ]])
+  -- vim.cmd([[ hi TAB guibg=#6aa6ba ]])
+  vim.cmd([[ setlocal noexpandtab ]])
+  vim.cmd([[ setlocal shiftwidth=8 ]])
+  vim.cmd([[ setlocal tabstop=8 ]])
+  vim.api.nvim_buf_set_keymap(0, 'n', "<C-s>", "<cmd>:noa w<cr>", {})
+  vim.api.nvim_buf_set_keymap(0, 'i', "<C-s>", "<Esc><cmd>:noa w<cr>", {})
+  vim.cmd([[
+    set listchars=trail:•,tab:⤑⤑
+  ]])
+  vim.cmd([[ set list ]])
 end
 
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.c",
   callback = function()
-    local cwd = vim.fn.getcwd()
-    if string.find(cwd, "linux") then
+    -- local dir = vim.fn.expand('%:h')
+    local dir = vim.fn.getcwd()
+    if string.find(dir, "linux") then
       EnterLinuxMode()
+    else
+      vim.cmd([[ hi clear TAB ]])
     end
   end,
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
+vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.h",
   callback = function()
-    local cwd = vim.fn.getcwd()
-    if string.find(cwd, "linux") then
+    -- local dir = vim.fn.expand('%:h')
+    local dir = vim.fn.getcwd()
+    if string.find(dir, "linux") then
       EnterLinuxMode()
+    else
+      vim.cmd([[ hi clear TAB ]])
     end
   end,
 })
@@ -98,6 +109,7 @@ end
 vim.api.nvim_create_autocmd("BufWrite", {
   pattern = "*",
   callback = function()
+    vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
     local cwd = vim.fn.getcwd()
     if string.find(cwd, "llvm") or (string.find(cwd, "linux")) then
       disable_format_on_save()
@@ -114,3 +126,13 @@ end, { noremap = true })
 vim.api.nvim_command([[
   set listchars=tab:\ \ 
 ]])
+
+vim.api.nvim_create_user_command('Lightmode', function()
+  vim.cmd [[ colorscheme catppuccin-latte ]]
+  vim.cmd [[ set background=light ]]
+end, {})
+
+vim.api.nvim_create_user_command('Darkmode', function()
+  vim.cmd [[ colorscheme kanagawa-wave ]]
+  vim.cmd [[ set background=dark ]]
+end, {})

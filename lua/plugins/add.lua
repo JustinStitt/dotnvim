@@ -104,13 +104,34 @@ return {
     config = true,
     event = "VeryLazy",
     opts = {
-      retirementAgeMins = 10,
-      minimumBufferNum = 5,
-      deleteBufferWhenFileDeleted = true,
+      retirementAgeMins = 30,
+      minimumBufferNum = 9,
     },
   },
   {
     "gbprod/yanky.nvim",
     opts = {},
   },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons",
+    },
+  },
+  {
+    "danielfalk/smart-open.nvim",
+    branch = "0.2.x",
+    config = function()
+      require("telescope").load_extension("smart_open")
+    end,
+    dependencies = {
+      "kkharji/sqlite.lua",
+      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+      { "nvim-telescope/telescope-fzy-native.nvim" },
+    },
+  },
+  { "chrisgrieser/nvim-spider" },
 }

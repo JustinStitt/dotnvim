@@ -17,28 +17,6 @@ require("toggleterm").setup({
 
 require("winshift").setup({})
 
-require("kanagawa").setup({
-  compile = false,
-  undercurl = true, -- enable undercurls
-  commentStyle = { italic = false },
-  functionStyle = { bold = true },
-  keywordStyle = { italic = false },
-  statementStyle = { bold = true },
-  typeStyle = {},
-  variablebuiltinStyle = { italic = false },
-  specialReturn = false, -- special highlight for the return keyword
-  dimInactive = true,
-  colors = {
-    theme = {
-      all = {
-        ui = {
-          bg_gutter = "none",
-        },
-      },
-    },
-  },
-})
-
 require("scrollbar").setup()
 
 require("virt-column").setup({ virtcolumn = "80" })
@@ -70,5 +48,17 @@ require("oil").setup({
     ["gx"] = "actions.open_external",
     ["g."] = "actions.toggle_hidden",
     ["g\\"] = "actions.toggle_trash",
+  },
+})
+
+require("spider").setup({
+  skipInsignificantPunctuation = true,
+  subwordMovement = false,
+})
+require("catppuccin").setup({
+  dim_inactive = {
+    enabled = true, -- dims the background color of inactive window
+    shade = "dark",
+    percentage = 0.15, -- percentage of the shade to apply to the inactive window
   },
 })

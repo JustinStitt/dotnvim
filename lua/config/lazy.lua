@@ -27,7 +27,7 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = { colorscheme = { "kanagawa", "tokyonight", "habamax" } },
+  install = { colorscheme = { "kanagawa-wave", "tokyonight", "habamax" } },
   checker = { enabled = false }, -- don't automatically check for plugin updates
   performance = {
     rtp = {
@@ -49,3 +49,5 @@ require("lazy").setup({
 require("config.setup")
 require("config.hlslens")
 require("config.dev")
+-- config.options.lua is automatically loaded, same with keymaps.lua, and
+-- autocmds.lua

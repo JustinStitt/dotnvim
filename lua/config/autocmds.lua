@@ -2,15 +2,15 @@
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
 vim.cmd([[
-  set listchars=trail:•
+  set listchars=trail:•,tab:⤑⤑
 ]])
 
 vim.cmd([[
-  autocmd InsertEnter * set listchars-=trail:•
+  autocmd InsertEnter * set listchars=trail:•,tab:⤑⤑
 ]])
 
 vim.cmd([[
-  autocmd InsertLeave * set listchars+=trail:•
+  autocmd InsertLeave * set listchars=trail:•,tab:⤑⤑
 ]])
 
 vim.api.nvim_create_autocmd('ModeChanged', {
