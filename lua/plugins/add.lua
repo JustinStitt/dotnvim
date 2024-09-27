@@ -134,4 +134,32 @@ return {
     },
   },
   { "chrisgrieser/nvim-spider" },
+  {
+    "folke/zen-mode.nvim",
+    opts = {},
+  },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "/usr/local/google/home/justinstitt/.config/nvim/get_openai_api_key.sh",
+        openai_params = {
+          model = "gpt-4-turbo",
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          max_tokens = 128000, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
+          temperature = 0,
+          top_p = 1,
+          n = 1,
+        },
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
 }

@@ -7,7 +7,7 @@ vim.api.nvim_command(
 )
 
 vim.api.nvim_command([[
-  autocmd ColorScheme * highlight SpellBad guifg=red
+  hi SpellBad gui=undercurl guisp=#ffff00
   autocmd FileType gitcommit setlocal spell
   " set listchars=tab:>\ ,trail:-,nbsp:+,eol:$
 ]])
@@ -35,6 +35,7 @@ function EnterLinuxMode()
   vim.cmd([[ setlocal tabstop=8 ]])
   vim.api.nvim_buf_set_keymap(0, 'n', "<C-s>", "<cmd>:noa w<cr>", {})
   vim.api.nvim_buf_set_keymap(0, 'i', "<C-s>", "<Esc><cmd>:noa w<cr>", {})
+  vim.api.nvim_buf_set_keymap(0, 'n', "<leader>cf", "<Esc>", {})
   vim.cmd([[
     set listchars=trail:•,tab:⤑⤑
   ]])

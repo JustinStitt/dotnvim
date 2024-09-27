@@ -23,6 +23,15 @@ vim.keymap.set({ "x", "v" }, "<BS>", "<left>", { noremap = true })
 vim.keymap.set({ "x", "v" }, "J", " :m '>+<cr>gv=gv<left>")
 vim.keymap.set({ "x", "v" }, "K", " :m '<-2<CR>gv=gv<left>", { noremap = true })
 vim.keymap.set({ "n" }, "zF", "zMzOzz", { noremap = true })
+vim.keymap.set({ "n" }, "'", "<cmd>:BufferLinePick<cr>")
+vim.keymap.set("v", "Z", function()
+  require("lazyvim.util").format.format({ force = true })
+end)
+vim.keymap.set(
+  { "n" },
+  "<leader>cf",
+  "<cmd>:lua print('lets not format the whole file 😀')<cr>"
+)
 vim.keymap.set("v", "/", "<esc>/\\%V") -- search within selection
 vim.keymap.set({ "n" }, ",mk", "oCc: Kees Cook <keescook@chromium.org>")
 vim.keymap.set(
@@ -35,7 +44,13 @@ vim.keymap.set(
   ",mj",
   "oReviewed-by: Justin Stitt <justinstitt@google.com>"
 )
-vim.keymap.set({ "n" }, ",mJ", "ggOHi,<cr><Esc>Go<cr>Thanks<cr>Justin<Esc>")
+vim.keymap.set(
+  { "n" },
+  ",mJ",
+  "ggOHi,<cr><Esc>Go<cr><C-w><cr>Thanks<cr>Justin<Esc>"
+)
+
+vim.keymap.set({ "n" }, ",,", "<cmd>:Telescope buffers<cr><Esc>")
 vim.keymap.set({ "n" }, ",mN", "oCc: Nathan Chancellor <nathan@kernel.org>")
 vim.keymap.set({ "n" }, ",mh", "oCc: linux-hardening@vger.kernel.org")
 vim.keymap.set({ "n" }, ",W", "<cmd>:WinShift<cr>")
@@ -50,7 +65,9 @@ vim.keymap.set("n", "q>>", "<cmd>:BufferLineMoveNext<cr>")
 vim.keymap.set("n", "q<<", "<cmd>:BufferLineMovePrev<cr>")
 vim.keymap.set("n", "<leader>ce", "<cmd>:lua EnterLinuxMode()<cr>")
 vim.keymap.set("n", "<leader>\\", "<cmd>:BufferLinePick<cr>")
+vim.keymap.set("n", "<leader>z", "<cmd>:ZenMode<cr>")
 vim.keymap.set("n", "-", "<cmd>:split<cr>")
+vim.keymap.set("n", "/", "<cmd>:Telescope buffers<cr><esc>")
 vim.keymap.set("n", "|", "<cmd>:vsplit<cr>")
 -- vim.keymap.set("n", "<C-b>", "<cmd>:lua MiniFiles.open()<cr>")
 vim.keymap.set("n", "<C-j>", "<C-e>")
@@ -73,6 +90,7 @@ vim.keymap.set("i", "<C-h>", "<left>")
 vim.keymap.set("n", "<S-h>", "<cmd>:FocusSplitCycle reverse<cr>")
 vim.keymap.set("n", "<C-l>", "<C-w>p")
 vim.keymap.set("t", "<C-l>", "<C-l>") -- allows clearing of terminal when in ToggleTerm
+vim.keymap.set("t", "<C-k>", "<C-k>")
 vim.keymap.set("t", "<C-k>", "<C-k>")
 vim.keymap.set("t", "<C-j>", "<C-j>")
 vim.keymap.set("t", "jk", "<c-\\><c-n>", { desc = "Enter Normal Mode" })

@@ -1,5 +1,6 @@
 -- My personal changes to the LazyVim Core plugins
 local actions = require("telescope.actions")
+local layout = require("telescope.actions.layout")
 local cmp = require("cmp")
 local Util = require("lazyvim.util")
 
@@ -8,18 +9,20 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
-        layout_strategy = "vertical",
-        layout_config = {
-          vertical = { height = 0.95, width = 0.9 },
-        },
+        -- layout_strategy = "vertical",
+        -- layout_config = {
+        --   vertical = { height = 0.95, width = 0.9 },
+        -- },
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-p>"] = layout.toggle_preview,
           },
           n = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-p>"] = layout.toggle_preview,
           },
         },
       },
@@ -206,4 +209,5 @@ return {
       inlay_hints = { enabled = false },
     },
   },
+  { "nvim-treesitter/nvim-treesitter-context" },
 }
