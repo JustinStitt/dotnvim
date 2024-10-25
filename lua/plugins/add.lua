@@ -148,7 +148,7 @@ return {
           model = "gpt-4-turbo",
           frequency_penalty = 0,
           presence_penalty = 0,
-          max_tokens = 128000, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
+          max_tokens = 4096, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
           temperature = 0,
           top_p = 1,
           n = 1,
@@ -160,6 +160,80 @@ return {
       "nvim-lua/plenary.nvim",
       "folke/trouble.nvim",
       "nvim-telescope/telescope.nvim",
+    },
+  },
+  {
+    "jake-stewart/multicursor.nvim",
+    branch = "1.0",
+    config = function()
+      local mc = require("multicursor-nvim")
+
+      mc.setup()
+
+      local set = vim.keymap.set
+
+      -- Add or skip cursor above/below the main cursor.
+
+      set({ "n", "v" }, "?", function()
+        mc.addCursor()
+      end)
+
+      -- Add or skip adding a new cursor by matching word/selection
+      set({ "n", "v" }, "<leader>n", function()
+        mc.matchAddCursor(1)
+      end)
+
+      -- Rotate the main cursor.
+      set({ "n", "v" }, "<left>", mc.nextCursor)
+      set({ "n", "v" }, "<right>", mc.prevCursor)
+
+      -- Delete the main cursor.
+      set({ "n", "v" }, "<leader>x", mc.deleteCursor)
+
+      -- Add and remove cursors with control + left click.
+      set("n", "<c-leftmouse>", mc.handleMouse)
+
+      set({ "n", "v" }, "<leader>X", function()
+        if mc.cursorsEnabled() then
+          mc.disableCursors()
+        else
+          mc.addCursor()
+        end
+      end)
+
+      set("n", "<esc>", function()
+        if not mc.cursorsEnabled() then
+          mc.enableCursors()
+        elseif mc.hasCursors() then
+          mc.clearCursors()
+        else
+          -- Default <esc> handler.
+        end
+      end)
+
+      -- Customize how cursors look.
+      local hl = vim.api.nvim_set_hl
+      hl(0, "MultiCursorCursor", { link = "Cursor" })
+      hl(0, "MultiCursorVisual", { link = "Visual" })
+      hl(0, "MultiCursorSign", { link = "SignColumn" })
+      hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+      hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+      hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+    end,
+  },
+  {
+    "https://github.com/ggandor/leap.nvim",
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      -- configurations go here
     },
   },
 }

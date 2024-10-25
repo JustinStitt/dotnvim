@@ -57,6 +57,10 @@ vim.keymap.set({ "n" }, ",W", "<cmd>:WinShift<cr>")
 vim.keymap.set({ "n" }, "<C-s>", "<cmd>:w<cr>")
 vim.keymap.set({ "i" }, "<C-s>", "<Esc><cmd>:w<cr>")
 vim.keymap.set({ "n", "i" }, "<C-q>", "<cmd>:q<cr>")
+vim.keymap.set("n", "<<", function()
+  require("barbecue.ui").navigate(-1)
+end)
+
 vim.keymap.set("n", "<leader><Tab>", "<Cmd>:tabn<cr>")
 vim.keymap.set("n", "<leader><S-Tab>", "<Cmd>:tabp<cr>")
 vim.keymap.set("n", "<Tab>", "<cmd>:BufferLineCycleNext<cr>")
@@ -67,7 +71,6 @@ vim.keymap.set("n", "<leader>ce", "<cmd>:lua EnterLinuxMode()<cr>")
 vim.keymap.set("n", "<leader>\\", "<cmd>:BufferLinePick<cr>")
 vim.keymap.set("n", "<leader>z", "<cmd>:ZenMode<cr>")
 vim.keymap.set("n", "-", "<cmd>:split<cr>")
-vim.keymap.set("n", "/", "<cmd>:Telescope buffers<cr><esc>")
 vim.keymap.set("n", "|", "<cmd>:vsplit<cr>")
 -- vim.keymap.set("n", "<C-b>", "<cmd>:lua MiniFiles.open()<cr>")
 vim.keymap.set("n", "<C-j>", "<C-e>")
@@ -82,6 +85,8 @@ vim.cmd([[
   nnoremap # *
 ]])
 
+-- vim.keymap.set({ "n", "x", "v", "o" }, "s", "<Plug>(leap)")
+-- vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
 vim.keymap.set("n", "s", "<cmd>:HopChar1<cr>")
 vim.keymap.set("n", "qs", "<cmd>:HopChar1MW<cr>")
 -- vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
@@ -120,10 +125,12 @@ vim.keymap.set("n", "<leader>gB", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gb", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gd", "<cmd>:Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "<leader>sB", "<cmd>:Telescope buffers<cr>")
--- vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
-vim.keymap.set("n", "<leader>so", function()
-  require("telescope").extensions.smart_open.smart_open()
-end, { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
+vim.keymap.set("n", "_", "<cmd>:Oil<cr>")
+
+-- vim.keymap.set("n", "<leader>so", function()
+--   require("telescope").extensions.smart_open.smart_open()
+-- end, { noremap = true, silent = true })
 vim.keymap.set("n", "<leader>lr", vim.lsp.buf.rename)
 vim.keymap.set("n", "<leader>;", "<cmd>:Dashboard<cr>")
 vim.keymap.set("n", "Q", function()
@@ -208,3 +215,31 @@ vim.keymap.set(
   "<cmd>lua require('spider').motion('b')<CR>",
   { desc = "Spider-b" }
 )
+
+local mc = require("multicursor-nvim")
+vim.keymap.set("n", "<esc>", function()
+  if not mc.cursorsEnabled() then
+    mc.enableCursors()
+  elseif mc.hasCursors() then
+    mc.clearCursors()
+  else
+    vim.cmd([[ :noh ]])
+    -- Default <esc> handler.
+  end
+end)
+
+vim.keymap.set({ "n", "v" }, "<up>", function()
+  mc.lineAddCursor(-1)
+end)
+
+vim.keymap.set({ "n", "v" }, "<down>", function()
+  mc.lineAddCursor(1)
+end)
+
+vim.keymap.set({ "n", "v" }, "<leader><up>", function()
+  mc.lineSkipCursor(-1)
+end)
+
+vim.keymap.set({ "n", "v" }, "<leader><down>", function()
+  mc.lineSkipCursor(1)
+end)

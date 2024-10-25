@@ -33,14 +33,16 @@ function EnterLinuxMode()
   vim.cmd([[ setlocal noexpandtab ]])
   vim.cmd([[ setlocal shiftwidth=8 ]])
   vim.cmd([[ setlocal tabstop=8 ]])
-  vim.api.nvim_buf_set_keymap(0, 'n', "<C-s>", "<cmd>:noa w<cr>", {})
-  vim.api.nvim_buf_set_keymap(0, 'i', "<C-s>", "<Esc><cmd>:noa w<cr>", {})
-  vim.api.nvim_buf_set_keymap(0, 'n', "<leader>cf", "<Esc>", {})
+  vim.api.nvim_buf_set_keymap(0, "n", "<C-s>", "<cmd>:noa w<cr>", {})
+  vim.api.nvim_buf_set_keymap(0, "i", "<C-s>", "<Esc><cmd>:noa w<cr>", {})
+  vim.api.nvim_buf_set_keymap(0, "n", "<leader>cf", "<Esc>", {})
   vim.cmd([[
     set listchars=trail:•,tab:⤑⤑
   ]])
   vim.cmd([[ set list ]])
 end
+
+vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
 
 vim.api.nvim_create_autocmd("BufEnter", {
   pattern = "*.c",
@@ -128,12 +130,12 @@ vim.api.nvim_command([[
   set listchars=tab:\ \ 
 ]])
 
-vim.api.nvim_create_user_command('Lightmode', function()
-  vim.cmd [[ colorscheme catppuccin-latte ]]
-  vim.cmd [[ set background=light ]]
+vim.api.nvim_create_user_command("Lightmode", function()
+  vim.cmd([[ colorscheme catppuccin-latte ]])
+  vim.cmd([[ set background=light ]])
 end, {})
 
-vim.api.nvim_create_user_command('Darkmode', function()
-  vim.cmd [[ colorscheme kanagawa-wave ]]
-  vim.cmd [[ set background=dark ]]
+vim.api.nvim_create_user_command("Darkmode", function()
+  vim.cmd([[ colorscheme kanagawa-wave ]])
+  vim.cmd([[ set background=dark ]])
 end, {})
