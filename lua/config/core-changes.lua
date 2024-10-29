@@ -23,6 +23,11 @@ return {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
             ["<C-p>"] = layout.toggle_preview,
+            ["q"] = {
+              actions.close,
+              type = "action",
+              opts = { nowait = true, silent = true },
+            },
           },
         },
       },
