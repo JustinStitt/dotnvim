@@ -28,6 +28,11 @@ return {
               type = "action",
               opts = { nowait = true, silent = true },
             },
+            ["<C-c>"] = {
+              actions.close,
+              type = "action",
+              opts = { nowait = true, silent = true },
+            },
           },
         },
       },
@@ -35,17 +40,23 @@ return {
     keys = {
       {
         "<leader>st",
-        Util.telescope("live_grep", { cwd = false }),
+        function()
+          require("telescope.builtin").live_grep({ cwd = false })
+        end,
         desc = "Grep (root dir)",
       },
       {
         "<leader>sf",
-        Util.telescope("files", { cwd = false }),
+        function()
+          require("telescope.builtin").files({ cwd = false })
+        end,
         desc = "Find Files (cwd)",
       },
       {
         "<leader>se",
-        Util.telescope("git_status", { cwd = false }),
+        function()
+          require("telescope.builtin").git_status({ cwd = false })
+        end,
         desc = "Search Git Status Files",
       },
     },
@@ -176,6 +187,7 @@ return {
       window = {
         mappings = {
           ["<cr>"] = "open_with_window_picker",
+          ["q"] = "close_window",
         },
       },
     },
@@ -212,7 +224,25 @@ return {
     "neovim/nvim-lspconfig",
     opts = {
       inlay_hints = { enabled = false },
+      servers = {
+        basedpyright = {},
+        ruff = { mason = false, autostart = false }, -- don't auto-install/use ruff
+        pyright = { mason = false, autostart = false }, -- or pyright...
+      },
     },
   },
   { "nvim-treesitter/nvim-treesitter-context" },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "basedpyright",
+        "black",
+        "clangd",
+      },
+    },
+  },
 }

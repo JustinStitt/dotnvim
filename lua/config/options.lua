@@ -12,3 +12,7 @@ vim.g.mkdp_port = "56777"
 vim.g.mkdp_echo_preview_url = 1
 
 vim.cmd([[ set background=dark ]])
+vim.g.lazyvim_python_lsp = "basedpyright"
+
+-- LSP Server to use for Python (from https://www.lazyvim.org/extras/lang/python)
+-- vim.g.lazyvim_python_lsp = "basedpyright"

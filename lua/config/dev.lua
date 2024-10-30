@@ -139,3 +139,5 @@ vim.api.nvim_create_user_command("Darkmode", function()
   vim.cmd([[ colorscheme kanagawa-wave ]])
   vim.cmd([[ set background=dark ]])
 end, {})
+
+vim.lsp.set_log_level("off")
