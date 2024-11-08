@@ -48,7 +48,7 @@ return {
       {
         "<leader>sf",
         function()
-          require("telescope.builtin").files({ cwd = false })
+          require("telescope.builtin").find_files({ cwd = false })
         end,
         desc = "Find Files (cwd)",
       },
