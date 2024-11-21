@@ -3,11 +3,11 @@
 -- Add any additional keymaps here
 --
 vim.keymap.set("n", "S", "/<Space><BS>")
-vim.keymap.set("n", "q]]", "F{a<CR><Esc>$i<CR><up><CR><up><Tab>")
+-- vim.keymap.set("n", "q]]", "F{a<CR><Esc>$i<CR><up><CR><up><Tab>")
 vim.keymap.set({ "n" }, "gr", require("telescope.builtin").lsp_references)
 vim.keymap.set({ "n" }, "gd", require("telescope.builtin").lsp_definitions)
 vim.keymap.set({ "n" }, "gI", require("telescope.builtin").lsp_implementations)
-vim.keymap.set({ "n" }, ",r", require("telescope.builtin").resume)
+-- vim.keymap.set({ "n" }, ",r", require("telescope.builtin").resume) -- how handled in core-changes
 vim.keymap.set({ "n" }, "<C-p>", "<C-i>", { noremap = true })
 vim.keymap.set({ "i" }, "<M-c>", "/**/<left><left>  <left>", { remap = true })
 -- vim.keymap.set("n", "J", "$<left> :m .+1<CR>==", { silent = true })
@@ -50,7 +50,7 @@ vim.keymap.set(
   "ggOHi,<cr><Esc>Go<cr><C-w><cr>Thanks<cr>Justin<Esc>"
 )
 
-vim.keymap.set({ "n" }, ",,", "<cmd>:Telescope buffers<cr><Esc>")
+-- vim.keymap.set({ "n" }, ",,", "<cmd>:Telescope buffers<cr><Esc>") -- we're doing this in core-changes.lua now
 vim.keymap.set({ "n" }, ",mN", "oCc: Nathan Chancellor <nathan@kernel.org>")
 vim.keymap.set({ "n" }, ",mh", "oCc: linux-hardening@vger.kernel.org")
 vim.keymap.set({ "n" }, ",W", "<cmd>:WinShift<cr>")
@@ -65,8 +65,8 @@ vim.keymap.set("n", "<leader><Tab>", "<Cmd>:tabn<cr>")
 vim.keymap.set("n", "<leader><S-Tab>", "<Cmd>:tabp<cr>")
 vim.keymap.set("n", "<Tab>", "<cmd>:BufferLineCycleNext<cr>")
 vim.keymap.set("n", "<S-Tab>", "<cmd>:BufferLineCyclePrev<cr>")
-vim.keymap.set("n", "q>>", "<cmd>:BufferLineMoveNext<cr>")
-vim.keymap.set("n", "q<<", "<cmd>:BufferLineMovePrev<cr>")
+vim.keymap.set("n", "<leader>>>", "<cmd>:BufferLineMoveNext<cr>")
+vim.keymap.set("n", "<leader><<", "<cmd>:BufferLineMovePrev<cr>")
 vim.keymap.set("n", "<leader>ce", "<cmd>:lua EnterLinuxMode()<cr>")
 vim.keymap.set("n", "<leader>\\", "<cmd>:BufferLinePick<cr>")
 vim.keymap.set("n", "<leader>z", "<cmd>:ZenMode<cr>")
@@ -88,7 +88,7 @@ vim.cmd([[
 -- vim.keymap.set({ "n", "x", "v", "o" }, "s", "<Plug>(leap)")
 -- vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
 vim.keymap.set("n", "s", "<cmd>:HopChar1<cr>")
-vim.keymap.set("n", "qs", "<cmd>:HopChar1MW<cr>")
+vim.keymap.set("n", "W", "<cmd>:HopChar1MW<cr>")
 -- vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
 vim.keymap.set("i", "<C-l>", "<right>")
 vim.keymap.set("i", "<C-h>", "<left>")
@@ -105,7 +105,7 @@ vim.keymap.set("n", "(", "<Plug>(YankyPreviousEntry)")
 vim.keymap.set("n", ")", "<Plug>(YankyNextEntry)")
 
 vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
-vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
+-- vim.keymap.set("n", "qS", "<cmd>:noh<cr>")
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")
 vim.keymap.set("n", "<leader>le", "<cmd>:Telescope quickfix<cr>")
 local cmp = require("cmp")
@@ -247,3 +247,11 @@ vim.keymap.set({ "n", "v" }, "<leader><down>", function()
 end)
 
 vim.keymap.set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors)
+
+local neoscroll = require("neoscroll")
+vim.keymap.set({ "n", "v", "x" }, "<C-d>", function()
+  neoscroll.ctrl_d({ duration = 100 })
+end)
+vim.keymap.set({ "n", "v", "x" }, "<C-u>", function()
+  neoscroll.ctrl_u({ duration = 100 })
+end)

@@ -30,7 +30,9 @@ return {
   {
     "karb94/neoscroll.nvim",
     config = function()
-      require("neoscroll").setup({})
+      require("neoscroll").setup({
+        hide_cursor = false,
+      })
     end,
   },
   { "petertriho/nvim-scrollbar" },
@@ -99,15 +101,15 @@ return {
       })
     end,
   },
-  {
-    "chrisgrieser/nvim-early-retirement",
-    config = true,
-    event = "VeryLazy",
-    opts = {
-      retirementAgeMins = 30,
-      minimumBufferNum = 9,
-    },
-  },
+  -- {
+  --   "chrisgrieser/nvim-early-retirement",
+  --   config = true,
+  --   event = "VeryLazy",
+  --   opts = {
+  --     retirementAgeMins = 30,
+  --     minimumBufferNum = 9,
+  --   },
+  -- },
   {
     "gbprod/yanky.nvim",
     opts = {},

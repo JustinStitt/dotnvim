@@ -13,6 +13,15 @@ require("toggleterm").setup({
   float_opts = {
     border = "curved",
   },
+  on_open = function(term)
+    vim.api.nvim_buf_set_keymap(
+      term.bufnr,
+      "n",
+      "q",
+      "i",
+      { noremap = true, silent = true }
+    )
+  end,
 })
 
 require("winshift").setup({})

@@ -5,10 +5,14 @@ local cmp = require("cmp")
 local Util = require("lazyvim.util")
 
 return {
-  { -- Support <C-j> and <C-k> for Telescope scrolling
+  {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
+        cache_picker = {
+          num_pickers = 32,
+          ignore_empty_prompt = true,
+        },
         -- layout_strategy = "vertical",
         -- layout_config = {
         --   vertical = { height = 0.95, width = 0.9 },
@@ -17,11 +21,19 @@ return {
           i = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-d>"] = actions.results_scrolling_down,
+            ["<C-u>"] = actions.results_scrolling_up,
+            ["<PageUp>"] = actions.preview_scrolling_up,
+            ["<PageDown>"] = actions.preview_scrolling_down,
             ["<C-p>"] = layout.toggle_preview,
           },
           n = {
             ["<C-j>"] = actions.move_selection_next,
             ["<C-k>"] = actions.move_selection_previous,
+            ["<C-d>"] = actions.results_scrolling_down,
+            ["<C-u>"] = actions.results_scrolling_up,
+            ["<PageUp>"] = actions.preview_scrolling_up,
+            ["<PageDown>"] = actions.preview_scrolling_down,
             ["<C-p>"] = layout.toggle_preview,
             ["q"] = {
               actions.close,
@@ -58,6 +70,42 @@ return {
           require("telescope.builtin").git_status({ cwd = false })
         end,
         desc = "Search Git Status Files",
+      },
+      {
+        "<leader><leader>",
+        function()
+          require("telescope.builtin").buffers({ sort_mru = true })
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+            "m",
+            true
+          )
+        end,
+        desc = "Buffers (mru)",
+      },
+      {
+        "<leader>r",
+        function()
+          require("telescope.builtin").resume()
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+            "m",
+            true
+          )
+        end,
+        desc = "[r]esume last search",
+      },
+      {
+        "<leader>R",
+        function()
+          require("telescope.builtin").pickers()
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
+            "m",
+            true
+          )
+        end,
+        desc = "See [R]ecent telescope pickers",
       },
     },
   },
