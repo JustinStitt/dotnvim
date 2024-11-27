@@ -224,9 +224,6 @@ return {
     end,
   },
   {
-    "https://github.com/ggandor/leap.nvim",
-  },
-  {
     "utilyre/barbecue.nvim",
     name = "barbecue",
     version = "*",
@@ -238,4 +235,5 @@ return {
       -- configurations go here
     },
   },
+  { "sphamba/smear-cursor.nvim", opts = {} },
 }

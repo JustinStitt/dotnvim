@@ -85,8 +85,6 @@ vim.cmd([[
   nnoremap # *
 ]])
 
--- vim.keymap.set({ "n", "x", "v", "o" }, "s", "<Plug>(leap)")
--- vim.keymap.set({ "n", "x", "o" }, "gs", "<Plug>(leap-from-window)")
 vim.keymap.set("n", "s", "<cmd>:HopChar1<cr>")
 vim.keymap.set("n", "W", "<cmd>:HopChar1MW<cr>")
 -- vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
