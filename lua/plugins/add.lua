@@ -35,7 +35,7 @@ return {
       })
     end,
   },
-  { "petertriho/nvim-scrollbar" },
+  -- { "petertriho/nvim-scrollbar" },
   { "lukas-reineke/virt-column.nvim" },
   { "kylechui/nvim-surround" },
   {
@@ -114,56 +114,47 @@ return {
     "gbprod/yanky.nvim",
     opts = {},
   },
-  {
-    "utilyre/barbecue.nvim",
-    name = "barbecue",
-    version = "*",
-    dependencies = {
-      "SmiteshP/nvim-navic",
-      "nvim-tree/nvim-web-devicons",
-    },
-  },
-  {
-    "danielfalk/smart-open.nvim",
-    branch = "0.2.x",
-    config = function()
-      require("telescope").load_extension("smart_open")
-    end,
-    dependencies = {
-      "kkharji/sqlite.lua",
-      { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-      { "nvim-telescope/telescope-fzy-native.nvim" },
-    },
-  },
+  -- {
+  --   "danielfalk/smart-open.nvim",
+  --   branch = "0.2.x",
+  --   config = function()
+  --     require("telescope").load_extension("smart_open")
+  --   end,
+  --   dependencies = {
+  --     "kkharji/sqlite.lua",
+  --     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  --     { "nvim-telescope/telescope-fzy-native.nvim" },
+  --   },
+  -- },
   { "chrisgrieser/nvim-spider" },
   {
     "folke/zen-mode.nvim",
     opts = {},
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    event = "VeryLazy",
-    config = function()
-      require("chatgpt").setup({
-        api_key_cmd = "/usr/local/google/home/justinstitt/.config/nvim/get_openai_api_key.sh",
-        openai_params = {
-          model = "gpt-4-turbo",
-          frequency_penalty = 0,
-          presence_penalty = 0,
-          max_tokens = 4096, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
-          temperature = 0,
-          top_p = 1,
-          n = 1,
-        },
-      })
-    end,
-    dependencies = {
-      "MunifTanjim/nui.nvim",
-      "nvim-lua/plenary.nvim",
-      "folke/trouble.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   event = "VeryLazy",
+  --   config = function()
+  --     require("chatgpt").setup({
+  --       api_key_cmd = "/usr/local/google/home/justinstitt/.config/nvim/get_openai_api_key.sh",
+  --       openai_params = {
+  --         model = "gpt-4-turbo",
+  --         frequency_penalty = 0,
+  --         presence_penalty = 0,
+  --         max_tokens = 4096, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
+  --         temperature = 0,
+  --         top_p = 1,
+  --         n = 1,
+  --       },
+  --     })
+  --   end,
+  --   dependencies = {
+  --     "MunifTanjim/nui.nvim",
+  --     "nvim-lua/plenary.nvim",
+  --     "folke/trouble.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --   },
+  -- },
   {
     "jake-stewart/multicursor.nvim",
     branch = "1.0",
@@ -235,5 +226,12 @@ return {
       -- configurations go here
     },
   },
-  { "sphamba/smear-cursor.nvim", opts = {} },
+  {
+    "sphamba/smear-cursor.nvim",
+    opts = {
+      legacy_computing_symbols_support = true,
+      smear_between_buffers = false,
+    },
+  },
+  { "stevearc/profile.nvim" },
 }

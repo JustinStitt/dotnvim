@@ -26,7 +26,7 @@ require("toggleterm").setup({
 
 require("winshift").setup({})
 
-require("scrollbar").setup()
+-- require("scrollbar").setup()
 
 require("virt-column").setup({ virtcolumn = "80" })
 
@@ -64,10 +64,38 @@ require("spider").setup({
   skipInsignificantPunctuation = true,
   subwordMovement = false,
 })
-require("catppuccin").setup({
-  dim_inactive = {
-    enabled = true, -- dims the background color of inactive window
-    shade = "dark",
-    percentage = 0.15, -- percentage of the shade to apply to the inactive window
-  },
-})
+-- require("catppuccin").setup({
+--   dim_inactive = {
+--     enabled = true, -- dims the background color of inactive window
+--     shade = "dark",
+--     percentage = 0.15, -- percentage of the shade to apply to the inactive window
+--   },
+-- })
+-- require("window-picker").setup({
+--   hint = "statusline-winbar",
+--   highlights = {
+--     statusline = {
+--       focused = {
+--         fg = "#ededed",
+--         bg = "#ffffff",
+--         bold = true,
+--       },
+--       unfocused = {
+--         fg = "#ededed",
+--         bg = "#ffffff",
+--         bold = true,
+--       },
+--     },
+--   },
+--   filter_rules = {
+--     include_current_win = false,
+--     autoselect_one = true,
+--     -- filter using buffer options
+--     bo = {
+--       -- if the file type is one of following, the window will be ignored
+--       filetype = { "neo-tree", "neo-tree-popup", "notify" },
+--       -- if the buffer type is one of following, the window will be ignored
+--       buftype = { "terminal", "quickfix" },
+--     },
+--   },
+-- })

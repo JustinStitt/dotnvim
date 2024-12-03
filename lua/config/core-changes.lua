@@ -220,6 +220,9 @@ return {
     opts = {
       close_if_last_window = true,
       filesystem = {
+        follow_current_file = {
+          enabled = false,
+        },
         hijack_netrw_behavior = "disabled",
         filtered_items = {
           visible = true,
@@ -234,8 +237,11 @@ return {
       },
       window = {
         mappings = {
-          ["<cr>"] = "open_with_window_picker",
+          ["w"] = "open_with_window_picker",
           ["q"] = "close_window",
+          ["<C-b>"] = "",
+          ["<Space>"] = "toggle_node",
+          ["<BS>"] = "",
         },
       },
     },
@@ -245,7 +251,21 @@ return {
         version = "*",
         config = function()
           require("window-picker").setup({
-            hint = "floating-big-letter",
+            highlights = {
+              statusline = {
+                focused = {
+                  fg = "#ededed",
+                  bg = "#3c2642",
+                  bold = true,
+                },
+                unfocused = {
+                  fg = "#ededed",
+                  bg = "#3c2642",
+                  bold = true,
+                },
+              },
+            },
+            hint = "statusline-winbar",
             filter_rules = {
               include_current_win = false,
               autoselect_one = true,
