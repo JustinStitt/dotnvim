@@ -233,5 +233,4 @@ return {
       smear_between_buffers = false,
     },
   },
-  { "stevearc/profile.nvim" },
 }

@@ -313,4 +313,11 @@ return {
       },
     },
   },
+  { "folke/noice.nvim", opts = { enabled = false } },
+  {
+    "folke/snacks.nvim",
+    opts = {
+      notifier = { enabled = false },
+    },
+  },
 }
