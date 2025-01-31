@@ -86,7 +86,18 @@ vim.cmd([[
 ]])
 
 vim.keymap.set("n", "s", "<cmd>:HopChar1<cr>")
-vim.keymap.set("n", "W", "<cmd>:HopChar1MW<cr>")
+vim.keymap.set("n", "W", "viW")
+local function ready_to_surround()
+  local ts = require("nvim-treesitter")
+  print("test")
+  vim.api.nvim_feedkeys(
+    vim.api.nvim_replace_termcodes("<C-[>", true, false, true),
+    "n",
+    false
+  )
+  vim.api.nvim_feedkeys("v", "n", false)
+end
+vim.keymap.set("n", ",mm", ready_to_surround)
 -- vim.keymap.set("n", "<S-l>", "<cmd>:FocusSplitCycle<cr>")
 vim.keymap.set("i", "<C-l>", "<right>")
 vim.keymap.set("i", "<C-h>", "<left>")

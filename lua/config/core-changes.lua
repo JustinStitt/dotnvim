@@ -135,13 +135,12 @@ return {
       }),
     },
   },
-  { -- I don't use this feature and it hijacks visual mode <BS>
+  { -- I don't use this feature and it hijacks visual mode <BS> (idk if it does)
     "nvim-treesitter/nvim-treesitter",
     opts = {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<leader>-",
           node_incremental = "v",
           node_decremental = "V",
         },
@@ -241,7 +240,6 @@ return {
           ["q"] = "close_window",
           ["<C-b>"] = "",
           ["<Space>"] = "toggle_node",
-          ["<BS>"] = "",
         },
       },
     },
