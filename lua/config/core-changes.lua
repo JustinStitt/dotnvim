@@ -141,6 +141,7 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
+          init_selection = "<leader>Q",
           node_incremental = "v",
           node_decremental = "V",
         },
@@ -317,5 +318,13 @@ return {
     opts = {
       notifier = { enabled = false },
     },
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    enabled = false,
+  },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    enabled = false,
   },
 }

@@ -237,22 +237,20 @@ vim.keymap.set("n", "<esc>", function()
   end
 end)
 
-vim.keymap.set({ "v" }, "<C-k>", function()
+vim.keymap.set({ "v" }, "<C-k>", function();
   mc.lineAddCursor(-1)
 end)
 
-vim.keymap.set({ "v" }, "<C-j>", function()
+vim.keymap.set({ "v" }, "<C-j>", function();
   mc.lineAddCursor(1)
 end)
 
-vim.keymap.set({ "n", "v" }, "<leader><up>", function()
-  if mc.hasCursors() then
-  end
+vim.keymap.set({ "v" }, "_", function();
   mc.lineSkipCursor(-1)
 end)
 
-vim.keymap.set({ "n", "v" }, "<leader><down>", function()
-  mc.lineSkipCursor(1)
+vim.keymap.set({ "v" }, "+", function();
+  mc.lineSkipCursor(1);
 end)
 
 vim.keymap.set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors)

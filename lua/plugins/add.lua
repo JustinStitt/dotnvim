@@ -256,7 +256,7 @@ return {
         provider = "openai_fim_compatible",
         n_completions = 1,
         context_window = 65535,
-        request_timeout = 5,
+        request_timeout = 10,
         notify = "debug",
         provider_options = {
           openai_fim_compatible = {
@@ -266,7 +266,8 @@ return {
             model = "deepseek-coder-v2:16b",
             optional = {
               max_tokens = 9000,
-              top_p = 0.9,
+              top_p = 0.4,
+              temperature = 0.15,
             },
           },
         },
