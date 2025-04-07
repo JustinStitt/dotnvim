@@ -35,14 +35,20 @@ return {
       })
     end,
   },
-  -- { "petertriho/nvim-scrollbar" },
+  {
+    "petertriho/nvim-scrollbar",
+    config = function()
+      require("gitsigns").setup()
+      require("scrollbar.handlers.gitsigns").setup()
+    end,
+  },
   { "lukas-reineke/virt-column.nvim" },
   { "kylechui/nvim-surround" },
   {
     "NStefan002/visual-surround.nvim",
     config = true, -- use defaults
   },
-  -- { "kevinhwang91/nvim-hlslens" },
+  { "kevinhwang91/nvim-hlslens" },
   {
     "bloznelis/before.nvim",
     config = function()

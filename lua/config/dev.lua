@@ -170,11 +170,11 @@ end, {})
 
 -- as per https://github.com/LazyVim/LazyVim/discussions/326 (for performance)
 vim.lsp.set_log_level("off")
-vim.g.matchparen_timeout = 2
-vim.g.matchparen_insert_timeout = 2
-vim.opt.syntax = "off"
-vim.o.foldenable = false
-vim.o.spell = false
+-- vim.g.matchparen_timeout = 2
+-- vim.g.matchparen_insert_timeout = 2
+-- vim.opt.syntax = "off"
+-- vim.o.foldenable = false
+-- vim.o.spell = false
 
 -- local should_profile = os.getenv("NVIM_PROFILE")
 -- if should_profile then

@@ -26,7 +26,7 @@ require("toggleterm").setup({
 
 require("winshift").setup({})
 
--- require("scrollbar").setup()
+require("scrollbar").setup({})
 
 require("virt-column").setup({ virtcolumn = "80" })
 
