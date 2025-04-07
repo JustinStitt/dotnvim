@@ -42,7 +42,7 @@ return {
     "NStefan002/visual-surround.nvim",
     config = true, -- use defaults
   },
-  { "kevinhwang91/nvim-hlslens" },
+  -- { "kevinhwang91/nvim-hlslens" },
   {
     "bloznelis/before.nvim",
     config = function()
@@ -274,4 +274,5 @@ return {
       })
     end,
   },
+  { "nvim-pack/nvim-spectre" },
 }

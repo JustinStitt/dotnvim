@@ -28,72 +28,100 @@ vim.cmd([[
   au BufEnter,BufRead * call HiTabs()
 ]])
 
+vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+
 function EnterLinuxMode()
-  -- vim.cmd([[ hi TAB guibg=#6aa6ba ]])
+  print("Entering linux mode 😼")
   vim.cmd([[ setlocal noexpandtab ]])
   vim.cmd([[ setlocal shiftwidth=8 ]])
   vim.cmd([[ setlocal tabstop=8 ]])
   vim.api.nvim_buf_set_keymap(0, "n", "<C-s>", "<cmd>:noa w<cr>", {})
   vim.api.nvim_buf_set_keymap(0, "i", "<C-s>", "<Esc><cmd>:noa w<cr>", {})
-  vim.api.nvim_buf_set_keymap(0, "n", "<leader>cf", "<Esc>", {})
-  vim.cmd([[
-    set listchars=trail:•,tab:⤑⤑
-  ]])
   vim.cmd([[ set list ]])
 end
 
-vim.api.nvim_set_hl(0, "LeapBackdrop", { link = "Comment" })
+local function is_in_linux_project()
+  local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
+  if filepath == "" then
+    return false
+  end
+  local current_dir = vim.fs.dirname(filepath)
+  if not current_dir then
+    return false
+  end
+  while true do
+    local basename = vim.fs.basename(current_dir)
+    if basename == "linux" then
+      return true
+    end
+    local parent_dir = vim.fs.dirname(current_dir)
+    if parent_dir == current_dir or parent_dir == nil or parent_dir == "" then
+      break
+    end
+    current_dir = parent_dir
+  end
+  return false
+end
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.c",
+vim.api.nvim_create_autocmd("VimEnter", {
+  pattern = "*",
   callback = function()
-    -- local dir = vim.fn.expand('%:h')
-    local dir = vim.fn.getcwd()
-    if string.find(dir, "linux") then
+    if is_in_linux_project() then
       EnterLinuxMode()
-    else
-      vim.cmd([[ hi clear TAB ]])
     end
   end,
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = "*.h",
-  callback = function()
-    -- local dir = vim.fn.expand('%:h')
-    local dir = vim.fn.getcwd()
-    if string.find(dir, "linux") then
-      EnterLinuxMode()
-    else
-      vim.cmd([[ hi clear TAB ]])
-    end
-  end,
-})
-
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  { pattern = "Makefile", command = "lua EnterLinuxMode()" }
-)
-
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  { pattern = "*.eml", command = "lua EnterLinuxMode()" }
-)
-
-vim.api.nvim_create_autocmd(
-  "BufRead",
-  { pattern = "COMMIT_EDITMSG", command = "lua EnterLinuxMode()" }
-)
-
-vim.api.nvim_create_autocmd(
-  "BufWinLeave",
-  { pattern = "*.*", command = "mkview" }
-)
-
-vim.api.nvim_create_autocmd(
-  "BufWinEnter",
-  { pattern = "*.*", command = "silent! loadview" }
-)
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*.c",
+--   callback = function()
+--     -- local dir = vim.fn.expand('%:h')
+--     local dir = vim.fn.getcwd()
+--     if string.find(dir, "linux") then
+--       EnterLinuxMode()
+--     else
+--       vim.cmd([[ hi clear TAB ]])
+--     end
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = "*.h",
+--   callback = function()
+--     -- local dir = vim.fn.expand('%:h')
+--     local dir = vim.fn.getcwd()
+--     if string.find(dir, "linux") then
+--       EnterLinuxMode()
+--     else
+--       vim.cmd([[ hi clear TAB ]])
+--     end
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd(
+--   "BufRead",
+--   { pattern = "Makefile", command = "lua EnterLinuxMode()" }
+-- )
+--
+-- vim.api.nvim_create_autocmd(
+--   "BufRead",
+--   { pattern = "*.eml", command = "lua EnterLinuxMode()" }
+-- )
+--
+-- vim.api.nvim_create_autocmd(
+--   "BufRead",
+--   { pattern = "COMMIT_EDITMSG", command = "lua EnterLinuxMode()" }
+-- )
+--
+-- vim.api.nvim_create_autocmd(
+--   "BufWinLeave",
+--   { pattern = "*.*", command = "mkview" }
+-- )
+--
+-- vim.api.nvim_create_autocmd(
+--   "BufWinEnter",
+--   { pattern = "*.*", command = "silent! loadview" }
+-- )
 
 function disable_format_on_save()
   if vim.g.autoformat == true then
