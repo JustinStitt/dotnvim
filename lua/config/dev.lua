@@ -72,57 +72,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = "*.c",
---   callback = function()
---     -- local dir = vim.fn.expand('%:h')
---     local dir = vim.fn.getcwd()
---     if string.find(dir, "linux") then
---       EnterLinuxMode()
---     else
---       vim.cmd([[ hi clear TAB ]])
---     end
---   end,
--- })
---
--- vim.api.nvim_create_autocmd("BufEnter", {
---   pattern = "*.h",
---   callback = function()
---     -- local dir = vim.fn.expand('%:h')
---     local dir = vim.fn.getcwd()
---     if string.find(dir, "linux") then
---       EnterLinuxMode()
---     else
---       vim.cmd([[ hi clear TAB ]])
---     end
---   end,
--- })
---
--- vim.api.nvim_create_autocmd(
---   "BufRead",
---   { pattern = "Makefile", command = "lua EnterLinuxMode()" }
--- )
---
--- vim.api.nvim_create_autocmd(
---   "BufRead",
---   { pattern = "*.eml", command = "lua EnterLinuxMode()" }
--- )
---
--- vim.api.nvim_create_autocmd(
---   "BufRead",
---   { pattern = "COMMIT_EDITMSG", command = "lua EnterLinuxMode()" }
--- )
---
--- vim.api.nvim_create_autocmd(
---   "BufWinLeave",
---   { pattern = "*.*", command = "mkview" }
--- )
---
--- vim.api.nvim_create_autocmd(
---   "BufWinEnter",
---   { pattern = "*.*", command = "silent! loadview" }
--- )
-
 function disable_format_on_save()
   if vim.g.autoformat == true then
     -- vim.keymap.set({ "n", "i" }, "<C-s>", "<cmd>:noa w<cr>")
