@@ -237,7 +237,7 @@ return {
       },
       window = {
         mappings = {
-          ["w"] = "open_with_window_picker",
+          ["<cr>"] = "open",
           ["q"] = "close_window",
           ["<C-b>"] = "",
           ["<Space>"] = "toggle_node",
@@ -295,6 +295,7 @@ return {
         basedpyright = {},
         ruff = { mason = false, autostart = false }, -- don't auto-install/use ruff
         pyright = { mason = false, autostart = false }, -- or pyright...
+        gdscript = { cmd = { "godot-wsl-lsp", "--useMirroredNetworking" } },
       },
     },
   },

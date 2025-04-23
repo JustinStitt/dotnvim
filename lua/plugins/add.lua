@@ -137,30 +137,30 @@ return {
     "folke/zen-mode.nvim",
     opts = {},
   },
-  -- {
-  --   "jackMort/ChatGPT.nvim",
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("chatgpt").setup({
-  --       api_key_cmd = "/usr/local/google/home/justinstitt/.config/nvim/get_openai_api_key.sh",
-  --       openai_params = {
-  --         model = "gpt-4-turbo",
-  --         frequency_penalty = 0,
-  --         presence_penalty = 0,
-  --         max_tokens = 4096, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
-  --         temperature = 0,
-  --         top_p = 1,
-  --         n = 1,
-  --       },
-  --     })
-  --   end,
-  --   dependencies = {
-  --     "MunifTanjim/nui.nvim",
-  --     "nvim-lua/plenary.nvim",
-  --     "folke/trouble.nvim",
-  --     "nvim-telescope/telescope.nvim",
-  --   },
-  -- },
+  {
+    "jackMort/ChatGPT.nvim",
+    event = "VeryLazy",
+    config = function()
+      require("chatgpt").setup({
+        api_key_cmd = "/home/jstitt/.config/nvim/get_openai_api_key.sh",
+        openai_params = {
+          model = "gpt-4-turbo",
+          frequency_penalty = 0,
+          presence_penalty = 0,
+          max_tokens = 4096, -- hand-modify file in ~/.local/share/nvim as per https://github.com/jackMort/ChatGPT.nvim/issues/444
+          temperature = 0,
+          top_p = 1,
+          n = 1,
+        },
+      })
+    end,
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+      "nvim-lua/plenary.nvim",
+      "folke/trouble.nvim",
+      "nvim-telescope/telescope.nvim",
+    },
+  },
   {
     "jake-stewart/multicursor.nvim",
     branch = "1.0",
@@ -232,53 +232,5 @@ return {
       -- configurations go here
     },
   },
-  {
-    "sphamba/smear-cursor.nvim",
-    opts = {
-      legacy_computing_symbols_support = true,
-      smear_between_buffers = false,
-    },
-  },
-  {
-    "milanglacier/minuet-ai.nvim",
-    config = function()
-      require("minuet").setup({
-        virtualtext = {
-          auto_trigger_ft = {},
-          keymap = {
-            -- accept whole completion
-            accept = "<A-A>",
-            -- accept one line
-            accept_line = "<A-a>",
-            -- accept n lines (prompts for number)
-            accept_n_lines = "<A-z>",
-            -- Cycle to prev completion item, or manually invoke completion
-            prev = "<A-[>",
-            -- Cycle to next completion item, or manually invoke completion
-            next = "<A-]>",
-            dismiss = "<A-e>",
-          },
-        },
-        provider = "openai_fim_compatible",
-        n_completions = 1,
-        context_window = 65535,
-        request_timeout = 10,
-        notify = "debug",
-        provider_options = {
-          openai_fim_compatible = {
-            api_key = "TERM",
-            name = "Ollama",
-            end_point = "http://localhost:11434/v1/completions",
-            model = "deepseek-coder-v2:16b",
-            optional = {
-              max_tokens = 9000,
-              top_p = 0.4,
-              temperature = 0.15,
-            },
-          },
-        },
-      })
-    end,
-  },
-  { "nvim-pack/nvim-spectre" },
+  { "https://github.com/sphamba/smear-cursor.nvim", opts = {} },
 }
