@@ -49,5 +49,6 @@ require("lazy").setup({
 require("config.setup")
 require("config.hlslens")
 require("config.dev")
+require("config.dap")
 -- config.options.lua is automatically loaded, same with keymaps.lua, and
 -- autocmds.lua
