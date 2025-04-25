@@ -234,10 +234,14 @@ return {
   },
   {
     "sphamba/smear-cursor.nvim",
-    opts = {
-      legacy_computing_symbols_support = true,
-      smear_between_buffers = false,
-    },
+    version = "4b7334a09cd2434e735",
+    opts = function()
+      return {
+        legacy_computing_symbols_support = true,
+        smear_between_buffers = false,
+        smear_insert_mode = false,
+      }
+    end,
   },
   {
     "milanglacier/minuet-ai.nvim",

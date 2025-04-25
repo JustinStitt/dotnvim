@@ -140,7 +140,7 @@ end
 vim.api.nvim_create_autocmd("BufWrite", {
   pattern = "*",
   callback = function()
-    vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
+    -- vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20"
     local cwd = vim.fn.getcwd()
     if string.find(cwd, "llvm") or (string.find(cwd, "linux")) then
       disable_format_on_save()

@@ -327,8 +327,10 @@ return {
     "folke/snacks.nvim",
     opts = {
       notifier = { enabled = false },
+      scroll = { enabled = false },
     },
   },
+  { "folke/which-key.nvim", opts = { preset = "classic" } },
   -- {
   --   "nvim-lualine/lualine.nvim",
   --   enabled = false,
