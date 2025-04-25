@@ -13,6 +13,7 @@ vim.g.mkdp_echo_preview_url = 1
 
 vim.cmd([[ set background=dark ]])
 vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.snacks_animate = false -- because i want to use neoscroll
 
 -- LSP Server to use for Python (from https://www.lazyvim.org/extras/lang/python)
 -- vim.g.lazyvim_python_lsp = "basedpyright"

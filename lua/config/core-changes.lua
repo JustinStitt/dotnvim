@@ -110,6 +110,7 @@ return {
     },
   },
   { -- I want <C-j> and <C-k> to scroll the cmp menu
+    -- Thu Apr 24 05:38:02 PM PDT 2025 nvim-cmp replaced by blink.cmp
     "hrsh7th/nvim-cmp",
     opts = {
       mapping = cmp.mapping.preset.insert({
@@ -133,6 +134,15 @@ return {
           fallback()
         end,
       }),
+    },
+  },
+  {
+    "Saghen/blink.cmp",
+    opts = {
+      keymap = {
+        ["<C-j>"] = { "select_next", "fallback" },
+        ["<C-k>"] = { "select_prev", "fallback" },
+      },
     },
   },
   { -- I don't use this feature and it hijacks visual mode <BS> (idk if it does)
