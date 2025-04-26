@@ -111,6 +111,7 @@ return {
   },
   { -- I want <C-j> and <C-k> to scroll the cmp menu
     -- Thu Apr 24 05:38:02 PM PDT 2025 nvim-cmp replaced by blink.cmp
+    -- Fri Apr 25 04:00:04 PM PDT 2025, agh, turns out i want to use nvim.cmp (blink seems slow for clangd completions)
     "hrsh7th/nvim-cmp",
     opts = {
       mapping = cmp.mapping.preset.insert({
@@ -330,13 +331,5 @@ return {
       scroll = { enabled = false },
     },
   },
-  { "folke/which-key.nvim", opts = { preset = "classic" } },
-  -- {
-  --   "nvim-lualine/lualine.nvim",
-  --   enabled = false,
-  -- },
-  -- {
-  --   "lukas-reineke/indent-blankline.nvim",
-  --   enabled = false,
-  -- },
+  { "folke/which-key.nvim", opts = { preset = "modern" } },
 }
