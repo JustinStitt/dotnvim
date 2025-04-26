@@ -237,7 +237,7 @@ return {
     version = "4b7334a09cd2434e735",
     opts = function()
       return {
-        legacy_computing_symbols_support = true,
+        legacy_computing_symbols_support = vim.env.PERSONAL_PC == nil,
         smear_between_buffers = false,
         smear_insert_mode = false,
       }
