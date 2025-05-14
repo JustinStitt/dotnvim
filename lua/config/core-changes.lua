@@ -114,6 +114,9 @@ return {
     -- Fri Apr 25 04:00:04 PM PDT 2025, agh, turns out i want to use nvim.cmp (blink seems slow for clangd completions)
     "hrsh7th/nvim-cmp",
     opts = {
+      performance = {
+        fetching_timeout = 2000,
+      },
       mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping.select_next_item({
           behavior = cmp.SelectBehavior.Insert,
@@ -134,6 +137,7 @@ return {
           cmp.abort()
           fallback()
         end,
+        -- ["<A-y>"] = require("minuet").make_cmp_map(),
       }),
     },
   },

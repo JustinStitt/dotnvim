@@ -247,37 +247,27 @@ return {
     "milanglacier/minuet-ai.nvim",
     config = function()
       require("minuet").setup({
-        virtualtext = {
-          auto_trigger_ft = {},
-          keymap = {
-            -- accept whole completion
-            accept = "<A-A>",
-            -- accept one line
-            accept_line = "<A-a>",
-            -- accept n lines (prompts for number)
-            accept_n_lines = "<A-z>",
-            -- Cycle to prev completion item, or manually invoke completion
-            prev = "<A-[>",
-            -- Cycle to next completion item, or manually invoke completion
-            next = "<A-]>",
-            dismiss = "<A-e>",
-          },
-        },
-        provider = "openai_fim_compatible",
-        n_completions = 1,
+        provider = "gemini",
+        n_completions = 5,
         context_window = 65535,
         request_timeout = 10,
         notify = "debug",
         provider_options = {
-          openai_fim_compatible = {
-            api_key = "TERM",
-            name = "Ollama",
-            end_point = "http://localhost:11434/v1/completions",
-            model = "deepseek-coder-v2:16b",
+          gemini = {
+            model = "gemini-2.5-flash-preview-04-17",
+            stream = true,
+            api_key = function()
+              return os.getenv("GEMINI_API_KEY")
+            end,
             optional = {
-              max_tokens = 9000,
-              top_p = 0.4,
-              temperature = 0.15,
+              generationConfig = {
+                maxOutputTokens = 512,
+                -- When using `gemini-2.5-flash`, it is recommended to entirely
+                -- disable thinking for faster completion retrieval.
+                thinkingConfig = {
+                  thinkingBudget = 0,
+                },
+              },
             },
           },
         },

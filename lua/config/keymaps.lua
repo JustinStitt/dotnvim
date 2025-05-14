@@ -262,3 +262,17 @@ end)
 vim.keymap.set({ "n", "v", "x" }, "<C-u>", function()
   neoscroll.ctrl_u({ duration = 100 })
 end)
+
+vim.keymap.set({ "n", "t" }, "<leader>.", "<cmd>TermSelect<cr>")
+vim.keymap.set({ "n", "t" }, "<leader>N", "<cmd>ToggleTermSetName<cr>", {
+  noremap = true,
+  silent = true,
+  desc = "Rename ToggleTerm Terminal",
+})
+
+require("cmp").setup({
+  mapping = {
+    ["<C-]>"] = require("minuet").make_cmp_map(),
+    ["<A-y>"] = require("minuet").make_cmp_map(),
+  },
+})
