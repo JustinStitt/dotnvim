@@ -18,11 +18,22 @@ return {
     lazy = true,
     cmd = { "Outline", "OutlineOpen" },
     keys = {
-      { "<C-h>", "<cmd>:Outline<CR>", desc = "Toggle outline" },
+      {
+        "<C-h>",
+        "<cmd>:OutlineOpen<CR>",
+        desc = "Open outline",
+      },
     },
     opts = {
       outline_window = {
-        width = 20,
+        position = "right",
+        width = 22,
+      },
+      outline_items = {
+        auto_update_events = {
+          follow = { "CursorMoved" },
+          items = { "InsertLeave" },
+        },
       },
     },
   },
