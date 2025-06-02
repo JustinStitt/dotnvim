@@ -261,18 +261,19 @@ return {
         provider = "gemini",
         n_completions = 5,
         context_window = 65535,
-        request_timeout = 10,
+        request_timeout = 15,
         notify = "debug",
         provider_options = {
           gemini = {
             model = "gemini-2.5-flash-preview-04-17",
+            -- model = "gemini-2.5-pro-preview-05-06",
             stream = true,
             api_key = function()
               return os.getenv("GEMINI_API_KEY")
             end,
             optional = {
               generationConfig = {
-                maxOutputTokens = 512,
+                maxOutputTokens = 2800,
                 -- When using `gemini-2.5-flash`, it is recommended to entirely
                 -- disable thinking for faster completion retrieval.
                 thinkingConfig = {

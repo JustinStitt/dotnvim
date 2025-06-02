@@ -115,7 +115,7 @@ return {
     "hrsh7th/nvim-cmp",
     opts = {
       performance = {
-        fetching_timeout = 2000,
+        fetching_timeout = 25000, -- 25 seconds (pro gemini model might take awhile)
       },
       mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping.select_next_item({

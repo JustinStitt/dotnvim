@@ -35,6 +35,8 @@ require("nvim-surround").setup()
 require("scope").setup({})
 
 require("oil").setup({
+  delete_to_trash = true,
+  skip_confirm_for_simple_edits = true,
   view_options = {
     show_hidden = true,
   },
@@ -57,6 +59,7 @@ require("oil").setup({
     ["gx"] = "actions.open_external",
     ["g."] = "actions.toggle_hidden",
     ["g\\"] = "actions.toggle_trash",
+    ["q"] = "actions.close",
   },
 })
 
