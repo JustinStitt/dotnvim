@@ -207,7 +207,7 @@ vim.lsp.set_log_level("off")
 -- vim.keymap.set("", ",6", toggle_profile)
 -- Define the function to copy the full absolute path
 
-local function copy_full_path()
+function Copy_full_path()
   local full_path = vim.fn.expand("%:p")
   vim.fn.setreg("+", full_path)
   print("Copied full path: " .. full_path)
@@ -221,7 +221,7 @@ end
 
 vim.api.nvim_create_user_command(
   "CopyFullPath",
-  copy_full_path,
+  Copy_full_path,
   { desc = "Copy the full absolute path of the current file to clipboard" }
 )
 

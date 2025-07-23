@@ -265,7 +265,7 @@ return {
         notify = "debug",
         provider_options = {
           gemini = {
-            model = "gemini-2.5-flash-preview-04-17",
+            model = "gemini-2.5-flash",
             -- model = "gemini-2.5-pro-preview-05-06",
             stream = true,
             api_key = function()

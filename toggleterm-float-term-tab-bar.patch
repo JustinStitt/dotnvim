@@ -1,0 +1,44 @@
+diff --git a/lua/toggleterm/ui.lua b/lua/toggleterm/ui.lua
+index d76978f..4c891c1 100644
+--- a/lua/toggleterm/ui.lua
++++ b/lua/toggleterm/ui.lua
+@@ -301,6 +301,14 @@ function M._get_float_config(term, opening)
+   if version.major > 0 or version.minor >= 9 then
+     float_config.title_pos = term.display_name and opts.title_pos or nil
+     float_config.title = term.display_name
++    local title = ""
++    for _, t in pairs(terms.get_all()) do
++      local term_title = t.display_name
++      if term_title == nil then term_title = "" end
++      if term.id == t.id then term_title = "<" .. term_title .. ">" end
++      title = title .. "(" .. t.id .. ")" .. term_title .. " | "
++    end
++    float_config.title = title
+   end
+   return float_config
+ end
+@@ -372,7 +380,8 @@ function M.open_float(term)
+   local opts = term.float_opts or {}
+   local valid_buf = term.bufnr and api.nvim_buf_is_valid(term.bufnr)
+   local buf = valid_buf and term.bufnr or api.nvim_create_buf(false, false)
+-  local win = api.nvim_open_win(buf, true, M._get_float_config(term, true))
++  local config = M._get_float_config(term, true)
++  local win = api.nvim_open_win(buf, true, config)
+ 
+   term.window, term.bufnr = win, buf
+   -- partial fix for #391
+@@ -380,6 +389,14 @@ function M.open_float(term)
+ 
+   if opts.winblend then utils.wo_setlocal(win, "winblend", opts.winblend) end
+   term:__set_options()
++
++  -- Defer the update to allow the window to be created first
++  vim.schedule(function()
++    if not api.nvim_win_is_valid(win) then return end
++    local new_config = M._get_float_config(term, false)
++    new_config.border = config.border -- keep original border
++    api.nvim_win_set_config(win, new_config)
++  end)
+ end
+ 
+ ---Updates the floating terminal size

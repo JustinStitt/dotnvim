@@ -254,6 +254,7 @@ vim.keymap.set({ "v" }, "+", function()
 end)
 
 vim.keymap.set({ "n", "v" }, "<leader>A", mc.matchAllAddCursors)
+vim.keymap.set({ "n", "v" }, "<leader>M", mc.searchAllAddCursors)
 
 local neoscroll = require("neoscroll")
 vim.keymap.set({ "n", "v", "x" }, "<C-d>", function()
@@ -263,8 +264,17 @@ vim.keymap.set({ "n", "v", "x" }, "<C-u>", function()
   neoscroll.ctrl_u({ duration = 100 })
 end)
 
-vim.keymap.set({ "n", "t" }, "<leader>.", "<cmd>TermSelect<cr>")
-vim.keymap.set({ "n", "t" }, "<leader>N", "<cmd>ToggleTermSetName<cr>", {
+vim.keymap.set({ "n", "t" }, "<leader>.", function()
+  local name = vim.fn.input("Terminal name: ")
+  if name ~= "" then
+    vim.cmd(":TermNew name=" .. name)
+  else
+    vim.cmd(":TermNew")
+  end
+end)
+
+vim.keymap.set({ "n", "t" }, "<c-h>", "<cmd>TermSelect<cr>")
+vim.keymap.set({ "n", "t" }, "<c-n>", "<cmd>ToggleTermSetName<cr>", {
   noremap = true,
   silent = true,
   desc = "Rename ToggleTerm Terminal",
@@ -276,3 +286,28 @@ require("cmp").setup({
     ["<A-y>"] = require("minuet").make_cmp_map(),
   },
 })
+
+vim.keymap.set({ "n" }, "<C-f>", Copy_full_path)
+
+local terms = require("toggleterm.terminal")
+vim.keymap.set({ "t" }, "<C-g>", function()
+  local focused = terms.get_focused_id()
+  local all_ids = {}
+  local idx = nil
+  for i, t in pairs(terms.get_all()) do
+    all_ids[i] = t.id
+    if t.id == focused then
+      idx = i
+    end
+  end
+
+  local next_idx = idx + 1
+  if next_idx > #all_ids then
+    next_idx = 1
+  end
+
+  if next_idx == idx then
+    require("toggleterm").new(nil, nil, nil, "dev2")
+  end
+  require("toggleterm").toggle(next_idx)
+end)

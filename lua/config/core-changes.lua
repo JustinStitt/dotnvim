@@ -336,4 +336,5 @@ return {
     },
   },
   { "folke/which-key.nvim", opts = { preset = "modern" } },
+  { "stevearc/conform.nvim", opts = { formatters_by_ft = { json = { "fixjson" } } } },
 }

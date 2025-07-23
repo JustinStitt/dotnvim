@@ -7,6 +7,7 @@ require("focus").setup({
   },
 })
 
+local terms = require("toggleterm.terminal")
 require("toggleterm").setup({
   open_mapping = [[<c-\>]],
   direction = "float",
@@ -21,7 +22,11 @@ require("toggleterm").setup({
       "i",
       { noremap = true, silent = true }
     )
+    if terms.next_id() == 2 then
+      term.display_name = "dev"
+    end
   end,
+  winbar = { enable = true },
 })
 
 require("winshift").setup({})
