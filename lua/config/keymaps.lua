@@ -117,7 +117,7 @@ vim.keymap.set("n", "<leader>u", "<Cmd>:UndotreeToggle<cr>:UndotreeFocus<cr>")
 vim.keymap.set("x", "S", "<Plug>(nvim-surround-visual)")
 vim.keymap.set("n", "<leader>le", "<cmd>:Telescope quickfix<cr>")
 local cmp = require("cmp")
-vim.keymap.set("i", "<C-Space>", cmp.mapping.close())
+vim.keymap.set("i", "<C-Space>", cmp.mapping.complete())
 vim.keymap.set(
   "n",
   "<C-Space>",
