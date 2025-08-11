@@ -126,30 +126,30 @@ return {
         }),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-S-k>"] = cmp.mapping.complete(),
-        ["<C-Space>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+        ["<C-Space>"] = cmp.mapping.complete(),
+        ["<CR>"] = cmp.mapping.confirm({ select = true }),
         ["<S-CR>"] = cmp.mapping.confirm({
           behavior = cmp.ConfirmBehavior.Replace,
           select = true,
-        }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-        ["<C-CR>"] = function(fallback)
-          cmp.abort()
-          fallback()
-        end,
-        -- ["<A-y>"] = require("minuet").make_cmp_map(),
+        }),
+        ["<Tab>"] = cmp.mapping(function()
+          -- Do nothing - explicitly disable tab
+        end, { "i", "s" }),
+        ["<S-Tab>"] = cmp.mapping(function()
+          -- Do nothing - explicitly disable shift-tab
+        end, { "i", "s" }),
       }),
     },
   },
-  {
-    "Saghen/blink.cmp",
-    opts = {
-      keymap = {
-        ["<C-j>"] = { "select_next", "fallback" },
-        ["<C-k>"] = { "select_prev", "fallback" },
-      },
-    },
-  },
+  -- {
+  --   "Saghen/blink.cmp",
+  --   opts = {
+  --     keymap = {
+  --       ["<C-j>"] = { "select_next", "fallback" },
+  --       ["<C-k>"] = { "select_prev", "fallback" },
+  --     },
+  --   },
+  -- },
   { -- I don't use this feature and it hijacks visual mode <BS> (idk if it does)
     "nvim-treesitter/nvim-treesitter",
     opts = {
@@ -336,5 +336,8 @@ return {
     },
   },
   { "folke/which-key.nvim", opts = { preset = "modern" } },
-  { "stevearc/conform.nvim", opts = { formatters_by_ft = { json = { "fixjson" } } } },
+  {
+    "stevearc/conform.nvim",
+    opts = { formatters_by_ft = { json = { "fixjson" } } },
+  },
 }
