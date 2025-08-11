@@ -295,4 +295,24 @@ return {
     "stevearc/conform.nvim",
     opts = { formatters_by_ft = { json = { "fixjson" } } },
   },
+  {
+    "L3MON4D3/LuaSnip",
+    opts = function(_, opts)
+      -- Disable automatic jumping and selection
+      local luasnip = require("luasnip")
+      luasnip.config.setup({
+        region_check_events = "InsertEnter",
+        delete_check_events = "InsertLeave",
+      })
+      
+      -- Override the jump functionality to do nothing
+      local orig_jump = luasnip.jump
+      luasnip.jump = function() end
+      luasnip.expand_or_jump = function() end
+      luasnip.jumpable = function() return false end
+      luasnip.expand_or_jumpable = function() return false end
+      
+      return opts
+    end,
+  },
 }
