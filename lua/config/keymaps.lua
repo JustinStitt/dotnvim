@@ -273,8 +273,8 @@ vim.keymap.set({ "n", "t" }, "<leader>.", function()
   end
 end)
 
-vim.keymap.set({ "n", "t" }, "<c-h>", "<cmd>TermSelect<cr>")
-vim.keymap.set({ "n", "t" }, "<c-n>", "<cmd>ToggleTermSetName<cr>", {
+vim.keymap.set({ "t" }, "<c-h>", "<cmd>TermSelect<cr>")
+vim.keymap.set({ "t" }, "<c-n>", "<cmd>ToggleTermSetName<cr>", {
   noremap = true,
   silent = true,
   desc = "Rename ToggleTerm Terminal",
