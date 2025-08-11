@@ -114,10 +114,8 @@ return {
     -- Fri Apr 25 04:00:04 PM PDT 2025, agh, turns out i want to use nvim.cmp (blink seems slow for clangd completions)
     "hrsh7th/nvim-cmp",
     opts = function(_, opts)
-      local has_selected = false
-
       opts.performance = {
-        fetching_timeout = 25000, -- 25 seconds (pro gemini model might take awhile)
+        fetching_timeout = 15000, -- 15 seconds (pro gemini model might take awhile) (for minuet)
       }
 
       opts.mapping = cmp.mapping.preset.insert({
@@ -131,6 +129,20 @@ return {
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<CR>"] = cmp.mapping(function(fallback)
+          local entry = cmp.get_selected_entry()
+          if entry then
+            local source = entry.source.name
+            -- Only allow Enter for LSP and text completions
+            if source == "nvim_lsp" or source == "buffer" or source == "path" then
+              cmp.confirm({ select = false })
+            else
+              fallback()
+            end
+          else
+            fallback()
+          end
+        end, { "i", "s" }),
         ["<Tab>"] = cmp.mapping(function(fallback)
           -- Always use normal tab behavior (indentation)
           fallback()
