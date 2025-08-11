@@ -133,7 +133,7 @@ vim.keymap.set("n", "<leader>gb", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gd", "<cmd>:Gitsigns preview_hunk_inline<cr>")
 vim.keymap.set("n", "<leader>sB", "<cmd>:Telescope buffers<cr>")
 vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
-vim.keymap.set("n", "_", "<cmd>:Oil<cr>")
+-- vim.keymap.set("n", "_", "<cmd>:Oil<cr>") -- Disabled, using Fyler now
 
 -- vim.keymap.set("n", "<leader>so", function()
 --   require("telescope").extensions.smart_open.smart_open()
@@ -160,7 +160,7 @@ local function smart_exclude_window_navigation(direction)
   vim.cmd("wincmd " .. direction)
   local bufname = vim.api.nvim_buf_get_name(0)
 
-  if string.find(bufname, "neo%-tree") then
+  if string.find(bufname, "fyler") then
     if direction == "w" then
       smart_exclude_window_navigation(direction)
     else
@@ -173,17 +173,42 @@ vim.keymap.set("n", "<S-l>", function()
   smart_exclude_window_navigation("w")
 end)
 
--- when pressing <C-b>, instead of closing neotree simply go back to previous window
-local function smart_leave_neotree()
-  local bufname = vim.api.nvim_buf_get_name(0)
-  if string.find(bufname, "neo%-tree") then
-    vim.cmd("wincmd p") -- previous window
-  else
-    vim.cmd("Neotree reveal_force_cwd filesystem left")
-  end
-end
+-- when pressing <C-b>, toggle Fyler or focus if already open
 vim.keymap.set("n", "<C-b>", function()
-  smart_leave_neotree()
+  local current_buf = vim.api.nvim_get_current_buf()
+  local current_bufname = vim.api.nvim_buf_get_name(current_buf)
+  local current_filetype = vim.bo[current_buf].filetype
+  local current_buftype = vim.bo[current_buf].buftype
+  
+  -- Check if currently in Fyler window
+  if current_bufname:match("fyler") or current_filetype == "fyler" or current_buftype == "acwrite" then
+    -- We're in Fyler, go back to previous window
+    vim.cmd("wincmd p")
+    return
+  end
+  
+  -- Check if Fyler is already open by looking for Fyler buffer names
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if vim.api.nvim_buf_is_valid(buf) then
+      local bufname = vim.api.nvim_buf_get_name(buf)
+      local filetype = vim.bo[buf].filetype
+      local buftype = vim.bo[buf].buftype
+      
+      -- Check for Fyler by buffer name pattern or buffer type
+      if bufname:match("fyler") or filetype == "fyler" or buftype == "acwrite" then
+        local wins = vim.fn.win_findbuf(buf)
+        if #wins > 0 and vim.api.nvim_win_is_valid(wins[1]) then
+          -- Fyler window exists, focus it
+          vim.api.nvim_set_current_win(wins[1])
+          return
+        end
+      end
+    end
+  end
+  
+  -- Fyler not open, open it
+  local fyler = require("fyler")
+  fyler.open({ kind = "split_left_most" })
 end)
 vim.keymap.set("n", "=", "<cmd>:WindowsMaximize<cr>")
 vim.keymap.set("n", "<C-n>", "<cmd>:WindowsEqualize<cr>")

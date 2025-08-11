@@ -91,11 +91,7 @@ return {
       vim.fn["mkdp#util#install"]()
     end,
   },
-  {
-    "stevearc/oil.nvim",
-    opts = {},
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-  },
+  { "stevearc/oil.nvim", enabled = false },
   { "s1n7ax/nvim-window-picker" },
   {
     "anuvyklack/windows.nvim",
@@ -113,7 +109,7 @@ return {
         },
         ignore = { -- |windows.ignore|
           buftype = { "quickfix", "nofile" },
-          filetype = { "NvimTree", "neo-tree", "undotree", "gundo" },
+          filetype = { "undotree", "gundo" },
         },
       })
     end,
@@ -299,5 +295,29 @@ return {
     config = function()
       require("octo").setup()
     end,
+  },
+  {
+    "A7Lavinraj/fyler.nvim",
+    dependencies = { "echasnovski/mini.icons" },
+    opts = {
+      views = {
+        explorer = {
+          close_on_select = false,
+          confirm_simple = true,
+          default_explorer = true,
+          win = {
+            kind = "split_left_most",
+            kind_presets = {
+              split_left_most = {
+                width = "45abs",
+              },
+            },
+            win_opts = {
+              winfixwidth = true,
+            },
+          },
+        },
+      },
+    },
   },
 }

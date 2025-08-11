@@ -113,33 +113,41 @@ return {
     -- Thu Apr 24 05:38:02 PM PDT 2025 nvim-cmp replaced by blink.cmp
     -- Fri Apr 25 04:00:04 PM PDT 2025, agh, turns out i want to use nvim.cmp (blink seems slow for clangd completions)
     "hrsh7th/nvim-cmp",
-    opts = {
-      performance = {
+    opts = function(_, opts)
+      local has_selected = false
+
+      opts.performance = {
         fetching_timeout = 25000, -- 25 seconds (pro gemini model might take awhile)
-      },
-      mapping = cmp.mapping.preset.insert({
+      }
+
+      opts.mapping = cmp.mapping.preset.insert({
         ["<C-j>"] = cmp.mapping.select_next_item({
-          behavior = cmp.SelectBehavior.Insert,
+          behavior = cmp.SelectBehavior.Select,
         }),
         ["<C-k>"] = cmp.mapping.select_prev_item({
-          behavior = cmp.SelectBehavior.Insert,
+          behavior = cmp.SelectBehavior.Select,
         }),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-Space>"] = cmp.mapping.complete(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
-        ["<S-CR>"] = cmp.mapping.confirm({
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true,
-        }),
-        ["<Tab>"] = cmp.mapping(function()
-          -- Do nothing - explicitly disable tab
+        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+          -- Always use normal tab behavior (indentation)
+          fallback()
         end, { "i", "s" }),
-        ["<S-Tab>"] = cmp.mapping(function()
-          -- Do nothing - explicitly disable shift-tab
+        ["<S-Tab>"] = cmp.mapping(function(fallback)
+          -- Always use normal shift-tab behavior
+          fallback()
         end, { "i", "s" }),
-      }),
-    },
+      })
+
+      -- Reset selection flag when menu closes
+      opts.view = {
+        entries = { name = "custom", selection_order = "near_cursor" },
+      }
+
+      return opts
+    end,
   },
   -- {
   --   "Saghen/blink.cmp",
@@ -230,72 +238,7 @@ return {
       { "<leader>st", false },
     },
   },
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      close_if_last_window = true,
-      filesystem = {
-        follow_current_file = {
-          enabled = false,
-        },
-        hijack_netrw_behavior = "disabled",
-        filtered_items = {
-          visible = true,
-          show_hidden_count = true,
-          hide_dotfiles = false,
-          hide_gitignored = true,
-          hide_by_name = {
-            ".git",
-          },
-          never_show = {},
-        },
-      },
-      window = {
-        mappings = {
-          ["w"] = "open_with_window_picker",
-          ["q"] = "close_window",
-          ["<C-b>"] = "",
-          ["<Space>"] = "toggle_node",
-        },
-      },
-    },
-    dependencies = {
-      {
-        "s1n7ax/nvim-window-picker",
-        version = "*",
-        config = function()
-          require("window-picker").setup({
-            highlights = {
-              statusline = {
-                focused = {
-                  fg = "#ededed",
-                  bg = "#3c2642",
-                  bold = true,
-                },
-                unfocused = {
-                  fg = "#ededed",
-                  bg = "#3c2642",
-                  bold = true,
-                },
-              },
-            },
-            hint = "statusline-winbar",
-            filter_rules = {
-              include_current_win = false,
-              autoselect_one = true,
-              -- filter using buffer options
-              bo = {
-                -- if the file type is one of following, the window will be ignored
-                filetype = { "neo-tree", "neo-tree-popup", "notify" },
-                -- if the buffer type is one of following, the window will be ignored
-                buftype = { "terminal", "quickfix" },
-              },
-            },
-          })
-        end,
-      },
-    },
-  },
+  { "nvim-neo-tree/neo-tree.nvim", enabled = false },
   {
     "lewis6991/gitsigns.nvim",
     opts = {
