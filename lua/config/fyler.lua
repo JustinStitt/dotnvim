@@ -16,6 +16,7 @@ require("fyler").setup({
         },
         win_opts = {
           winfixwidth = true,
+          winhighlight = "Normal:Normal,NormalNC:NormalFloat",
         },
       },
     },
@@ -67,4 +68,3 @@ vim.keymap.set("n", "<C-b>", function()
   local fyler = require("fyler")
   fyler.open({ kind = "split_left_most" })
 end)
-
