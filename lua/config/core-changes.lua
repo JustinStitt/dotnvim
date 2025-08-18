@@ -134,7 +134,11 @@ return {
           if entry then
             local source = entry.source.name
             -- Only allow Enter for LSP and text completions
-            if source == "nvim_lsp" or source == "buffer" or source == "path" then
+            if
+              source == "nvim_lsp"
+              or source == "buffer"
+              or source == "path"
+            then
               cmp.confirm({ select = false })
             else
               fallback()
@@ -304,14 +308,21 @@ return {
         region_check_events = "InsertEnter",
         delete_check_events = "InsertLeave",
       })
-      
+
       -- Override the jump functionality to do nothing
-      local orig_jump = luasnip.jump
       luasnip.jump = function() end
       luasnip.expand_or_jump = function() end
-      luasnip.jumpable = function() return false end
-      luasnip.expand_or_jumpable = function() return false end
-      
+      luasnip.jumpable = function()
+        return false
+      end
+      luasnip.expand_or_jumpable = function()
+        return false
+      end
+
+      -- Load git commit snippets from external file
+      local git_snippets = require("snippets.git")
+      luasnip.add_snippets("all", git_snippets)
+
       return opts
     end,
   },

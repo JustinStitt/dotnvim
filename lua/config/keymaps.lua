@@ -276,6 +276,22 @@ require("cmp").setup({
 
 vim.keymap.set({ "n" }, "<C-f>", Copy_full_path)
 
+-- Snippet expansion with Ctrl+Tab in insert mode
+vim.keymap.set("i", "<C-Tab>", function()
+  local luasnip = require("luasnip")
+  if luasnip.expandable() then
+    luasnip.expand()
+  end
+end, { noremap = true, silent = true })
+
+-- Alternative: Use Ctrl+E for snippet expansion
+vim.keymap.set("i", "<C-e>", function()
+  local luasnip = require("luasnip")
+  if luasnip.expandable() then
+    luasnip.expand()
+  end
+end, { noremap = true, silent = true })
+
 local terms = require("toggleterm.terminal")
 vim.keymap.set({ "t" }, "<C-g>", function()
   local focused = terms.get_focused_id()

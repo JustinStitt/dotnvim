@@ -1,4 +1,6 @@
 -- Fyler configuration and keymaps
+-- NOTE: We need this patch to work well with ToggleTerm:
+-- https://github.com/A7Lavinraj/fyler.nvim/pull/115
 
 -- Setup Fyler with configuration
 require("fyler").setup({

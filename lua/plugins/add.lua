@@ -296,4 +296,5 @@ return {
       require("octo").setup()
     end,
   },
+  { "rafikdraoui/jj-diffconflicts" },
 }
