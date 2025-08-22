@@ -13,4 +13,3 @@ local git_snippets = {
 }
 
 return git_snippets
-
