@@ -294,7 +294,15 @@ return {
   { "folke/which-key.nvim", opts = { preset = "modern" } },
   {
     "stevearc/conform.nvim",
-    opts = { formatters_by_ft = { json = { "fixjson" } } },
+    opts = {
+      formatters_by_ft = { json = { "fixjson" }, go = { "golines" } },
+      formatters = { 
+        golines = { 
+          args = { "-m", "100" },
+          stdin = true,
+        } 
+      },
+    },
   },
   {
     "L3MON4D3/LuaSnip",
