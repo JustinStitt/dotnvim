@@ -2,7 +2,6 @@
 local actions = require("telescope.actions")
 local layout = require("telescope.actions.layout")
 local cmp = require("cmp")
-local Util = require("lazyvim.util")
 
 return {
   {
@@ -13,10 +12,6 @@ return {
           num_pickers = 32,
           ignore_empty_prompt = true,
         },
-        -- layout_strategy = "vertical",
-        -- layout_config = {
-        --   vertical = { height = 0.95, width = 0.9 },
-        -- },
         mappings = {
           i = {
             ["<C-j>"] = actions.move_selection_next,
@@ -283,6 +278,8 @@ return {
         "basedpyright",
         "black",
         "clangd",
+        "gopls",
+        "golines",
       },
     },
   },
