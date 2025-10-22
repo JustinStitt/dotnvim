@@ -219,6 +219,14 @@ local function copy_rel_path()
   print("Copied relative path: " .. rel_path)
 end
 
+function Copy_filename_and_line_number() -- useful for lldb like SemaExpr.cpp:1234
+  local file_name = vim.fn.expand("%:t")
+  local lnum = vim.fn.line(".")
+  local concat = file_name .. ":" .. lnum
+  vim.fn.setreg("+", concat)
+  print("Copied " .. concat)
+end
+
 vim.api.nvim_create_user_command(
   "CopyFullPath",
   Copy_full_path,

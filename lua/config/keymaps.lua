@@ -275,6 +275,7 @@ require("cmp").setup({
 })
 
 vim.keymap.set({ "n" }, "<C-f>", Copy_full_path)
+vim.keymap.set({ "n" }, "<leader><C-f>", Copy_filename_and_line_number)
 
 -- Snippet expansion with Ctrl+Tab in insert mode
 vim.keymap.set("i", "<C-Tab>", function()
