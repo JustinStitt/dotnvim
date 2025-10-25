@@ -259,6 +259,9 @@ return {
   {
     "neovim/nvim-lspconfig",
     opts = {
+      diagnostics = {
+        virtual_text = false, -- because we use rachartier/tiny-inline-diagnostic.nvim now
+      },
       inlay_hints = { enabled = false },
       servers = {
         basedpyright = {},
@@ -296,11 +299,11 @@ return {
     "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = { json = { "fixjson" }, go = { "golines" } },
-      formatters = { 
-        golines = { 
+      formatters = {
+        golines = {
           args = { "-m", "100" },
           stdin = true,
-        } 
+        },
       },
     },
   },

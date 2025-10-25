@@ -39,71 +39,18 @@ require("nvim-surround").setup()
 
 require("scope").setup({})
 
--- require("oil").setup({ -- Disabled, using Fyler now
---   delete_to_trash = true,
---   skip_confirm_for_simple_edits = true,
---   view_options = {
---     show_hidden = true,
---   },
---   keymaps = {
---     ["g?"] = "actions.show_help",
---     ["<CR>"] = "actions.select",
---     ["<C-v>"] = "actions.select_vsplit",
---     ["<C-s>"] = false,
---     ["<C-h>"] = "actions.select_split",
---     ["<C-t>"] = "actions.select_tab",
---     ["<C-p>"] = "actions.preview",
---     ["<C-q>"] = "actions.close",
---     ["<C-b>"] = "actions.close",
---     ["<C-l>"] = "actions.refresh",
---     ["-"] = "actions.parent",
---     ["_"] = "actions.open_cwd",
---     ["`"] = "actions.cd",
---     ["~"] = "actions.tcd",
---     ["gs"] = "actions.change_sort",
---     ["gx"] = "actions.open_external",
---     ["g."] = "actions.toggle_hidden",
---     ["g\\"] = "actions.toggle_trash",
---     ["q"] = "actions.close",
---   },
--- })
+require("tiny-inline-diagnostic").setup({
+  preset = "modern",
+  show_all_diags_on_cursorline = true,
+  options = {
+    multiple_diag_under_cursor = true,
+    overflow = {
+      mode = "wrap",
+    },
 
-require("spider").setup({
-  skipInsignificantPunctuation = true,
-  subwordMovement = false,
+    multilines = {
+      enabled = true,
+      always_show = true,
+    },
+  },
 })
--- require("catppuccin").setup({
---   dim_inactive = {
---     enabled = true, -- dims the background color of inactive window
---     shade = "dark",
---     percentage = 0.15, -- percentage of the shade to apply to the inactive window
---   },
--- })
--- require("window-picker").setup({
---   hint = "statusline-winbar",
---   highlights = {
---     statusline = {
---       focused = {
---         fg = "#ededed",
---         bg = "#ffffff",
---         bold = true,
---       },
---       unfocused = {
---         fg = "#ededed",
---         bg = "#ffffff",
---         bold = true,
---       },
---     },
---   },
---   filter_rules = {
---     include_current_win = false,
---     autoselect_one = true,
---     -- filter using buffer options
---     bo = {
---       -- if the file type is one of following, the window will be ignored
---       filetype = { "neo-tree", "neo-tree-popup", "notify" },
---       -- if the buffer type is one of following, the window will be ignored
---       buftype = { "terminal", "quickfix" },
---     },
---   },
--- })
