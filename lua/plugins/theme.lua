@@ -1,0 +1,1 @@
+/home/jstitt/.config/omarchy/current/theme/neovim.lua
