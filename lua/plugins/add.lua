@@ -1,4 +1,15 @@
 return {
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      highlights = {
+        buffer_selected = {
+          bold = true,
+          fg = "#a7c080", -- green
+        },
+      },
+    },
+  },
   { "smoka7/hop.nvim" },
   { "nvim-focus/focus.nvim" },
   { "akinsho/toggleterm.nvim" },
