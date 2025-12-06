@@ -8,7 +8,7 @@ require("fyler").setup({
     explorer = {
       close_on_select = false,
       confirm_simple = true,
-      default_explorer = true,
+      default_explorer = false,
       win = {
         kind = "split_left_most",
         kind_presets = {

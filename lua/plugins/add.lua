@@ -102,7 +102,12 @@ return {
       vim.fn["mkdp#util#install"]()
     end,
   },
-  { "stevearc/oil.nvim", enabled = false },
+  {
+    "stevearc/oil.nvim",
+    opts = {
+      default_file_explorer = true,
+    },
+  },
   { "s1n7ax/nvim-window-picker" },
   {
     "anuvyklack/windows.nvim",
