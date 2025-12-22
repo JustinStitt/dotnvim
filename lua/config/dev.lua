@@ -40,6 +40,29 @@ function EnterLinuxMode()
   vim.cmd([[ set list ]])
 end
 
+local function is_in_pob_project()
+  local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
+  if filepath == "" then
+    return false
+  end
+  local current_dir = vim.fs.dirname(filepath)
+  if not current_dir then
+    return false
+  end
+  while true do
+    local basename = vim.fs.basename(current_dir)
+    if basename == "justinstitt-PathOfBuilding" then
+      return true
+    end
+    local parent_dir = vim.fs.dirname(current_dir)
+    if parent_dir == current_dir or parent_dir == nil or parent_dir == "" then
+      break
+    end
+    current_dir = parent_dir
+  end
+  return false
+end
+
 local function is_in_linux_project()
   local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
   if filepath == "" then
@@ -68,6 +91,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
   callback = function()
     if is_in_linux_project() then
       EnterLinuxMode()
+    elseif is_in_pob_project() then
+      print("Entering POB dev mode...")
+      vim.opt.expandtab = false
+      vim.opt.tabstop = 2
+      vim.opt.shiftwidth = 2
     end
   end,
 })
