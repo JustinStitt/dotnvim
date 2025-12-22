@@ -1,6 +1,22 @@
+-- On non-omarchy machines, just use kanagawa as the default theme
+if vim.fn.hostname() ~= "omarchy" then
+	return {
+		{
+			"rebelot/kanagawa.nvim",
+			priority = 1000,
+		},
+		{
+			"LazyVim/LazyVim",
+			opts = {
+				colorscheme = "kanagawa",
+			},
+		},
+	}
+end
+
+-- On omarchy: Load all theme plugins but don't apply them
+-- This ensures all colorschemes are available for hot-reloading
 return {
-	-- Load all theme plugins but don't apply them
-	-- This ensures all colorschemes are available for hot-reloading
 	{
 		"ribru17/bamboo.nvim",
 		lazy = true,

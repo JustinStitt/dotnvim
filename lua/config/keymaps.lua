@@ -78,6 +78,7 @@ vim.keymap.set("n", "<C-k>", "<C-y>")
 vim.keymap.set("i", "jk", "<Esc>")
 
 vim.keymap.set("x", "<Space>", "<Esc>")
+vim.keymap.set("x", "<S-Space>", "<Esc>")
 
 vim.cmd([[
   nnoremap * #

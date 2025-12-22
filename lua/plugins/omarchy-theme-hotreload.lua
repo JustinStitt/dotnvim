@@ -1,3 +1,9 @@
+-- Only enable theme hot-reloading on omarchy
+-- On other machines, theme.lua doesn't exist (it's an omarchy symlink)
+if vim.fn.hostname() ~= "omarchy" then
+	return {}
+end
+
 -- then symlink /home/jstitt/.config/omarchy/current/theme/neovim.lua in lua/plugins/theme.lua
 return {
 	{

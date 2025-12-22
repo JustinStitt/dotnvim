@@ -321,4 +321,29 @@ return {
       vim.diagnostic.config({ virtual_text = false })
     end,
   },
+  -- {
+  --   "OXY2DEV/markview.nvim",
+  --   lazy = false,
+  -- },
+  {
+  "epwalsh/obsidian.nvim",
+  version = "*",
+  lazy = true,
+  ft = "markdown",
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+  },
+  opts = {
+    workspaces = {
+      {
+        name = "personal",
+        path = "~/Documents/vault01/",
+      },
+      -- {
+      --   name = "work",
+      --   path = "~/vaults/work",
+      -- },
+    },
+  },
+},
 }
