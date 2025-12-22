@@ -326,24 +326,24 @@ return {
   --   lazy = false,
   -- },
   {
-  "epwalsh/obsidian.nvim",
-  version = "*",
-  lazy = true,
-  ft = "markdown",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-  },
-  opts = {
-    workspaces = {
-      {
-        name = "personal",
-        path = "~/Documents/vault01/",
+    "epwalsh/obsidian.nvim",
+    version = "*",
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "personal",
+          path = "~/Documents/vault01/",
+        },
+        -- {
+        --   name = "work",
+        --   path = "~/vaults/work",
+        -- },
       },
-      -- {
-      --   name = "work",
-      --   path = "~/vaults/work",
-      -- },
     },
   },
-},
 }

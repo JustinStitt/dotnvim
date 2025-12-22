@@ -6,19 +6,28 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+local spec = {
+  -- add LazyVim and import its plugins
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+  -- import any extras modules here
+  { import = "config.core-changes" },
+  -- { import = "lazyvim.plugins.extras.lang.typescript" },
+  -- { import = "lazyvim.plugins.extras.lang.json" },
+  -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+  -- import/override with your plugins
+  { import = "plugins" },
+}
+
+-- On omarchy, add the theme spec from the symlinked config file
+if vim.fn.hostname() == "omarchy" then
+  for _, plugin_spec in ipairs(require("config.omarchy-theme")) do
+    table.insert(spec, plugin_spec)
+  end
+end
+
 require("lazy").setup({
   change_detection = { enabled = false },
-  spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    { import = "config.core-changes" },
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- import/override with your plugins
-    { import = "plugins" },
-  },
+  spec = spec,
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
