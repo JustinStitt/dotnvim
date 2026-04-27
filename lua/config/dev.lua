@@ -1,10 +1,12 @@
-vim.api.nvim_command([[
-  autocmd ColorScheme * highlight NormalFloat guibg=#1f1f28
-]])
-
-vim.api.nvim_command(
-  [[ autocmd ColorScheme * highlight FloatBorder guifg=white guibg=#1f1f28 ]]
-)
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    if vim.o.background == "light" then
+      return
+    end
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#1f1f28" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { fg = "white", bg = "#1f1f28" })
+  end,
+})
 
 vim.api.nvim_command([[
   hi SpellBad gui=undercurl guisp=#ffff00
@@ -195,6 +197,45 @@ vim.api.nvim_create_user_command("Darkmode", function()
   vim.cmd([[ colorscheme kanagawa-wave ]])
   vim.cmd([[ set background=dark ]])
 end, {})
+
+-- Theme switching driven by ~/.config/nvim/.env file with LIGHT_MODE=ON|OFF
+local env_path = vim.fn.expand("~/.config/nvim/.env")
+
+local function read_light_mode()
+  local f = io.open(env_path, "r")
+  if not f then
+    return false
+  end
+  for line in f:lines() do
+    local v = line:match("^%s*LIGHT_MODE%s*=%s*(%S+)")
+    if v then
+      f:close()
+      return v:upper() == "ON"
+    end
+  end
+  f:close()
+  return false
+end
+
+local function apply_theme_from_env()
+  local light = read_light_mode()
+  local target_bg = light and "light" or "dark"
+  local target_cs = light and "catppuccin-latte" or "kanagawa"
+  if vim.o.background ~= target_bg then
+    vim.o.background = target_bg
+  end
+  if vim.g.colors_name ~= target_cs then
+    pcall(vim.cmd.colorscheme, target_cs)
+  end
+end
+
+vim.api.nvim_create_user_command("ThemeSync", apply_theme_from_env, {})
+
+vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    vim.defer_fn(apply_theme_from_env, 50)
+  end,
+})
 
 -- as per https://github.com/LazyVim/LazyVim/discussions/326 (for performance)
 vim.lsp.set_log_level("off")

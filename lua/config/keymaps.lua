@@ -3,6 +3,16 @@
 -- Add any additional keymaps here
 --
 vim.keymap.set("n", "S", "/<Space><BS>")
+
+vim.keymap.set("n", ",U", function()
+	if vim.g.colors_name == "catppuccin-latte" then
+		vim.o.background = "dark"
+		vim.cmd.colorscheme("kanagawa")
+	else
+		vim.o.background = "light"
+		vim.cmd.colorscheme("catppuccin-latte")
+	end
+end, { desc = "Toggle light/dark theme" })
 -- vim.keymap.set("n", "q]]", "F{a<CR><Esc>$i<CR><up><CR><up><Tab>")
 vim.keymap.set({ "n" }, "gr", require("telescope.builtin").lsp_references)
 vim.keymap.set({ "n" }, "gd", require("telescope.builtin").lsp_definitions)

@@ -227,9 +227,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "kanagawa-wave", -- dark mode
-      -- colorscheme = "catppuccin-latte", -- light mode
       -- colorscheme = "kanagawa-wave", -- dark mode
+      -- colorscheme = "catppuccin-latte", -- light mode
     },
   },
   {
