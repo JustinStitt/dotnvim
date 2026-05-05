@@ -4,8 +4,37 @@
 vim.g.mapleader = ","
 vim.opt.relativenumber = false
 vim.opt.cursorline = true
-vim.opt.statuscolumn = ""
 vim.opt.signcolumn = "yes"
+
+-- Show mark letter in place of line number when a mark exists on that line.
+local function norm(p)
+  if not p or p == "" then
+    return ""
+  end
+  return vim.fn.fnamemodify(p, ":p")
+end
+
+function _G.MarkStatusColumn()
+  local lnum = vim.v.lnum
+  local buf = vim.api.nvim_get_current_buf()
+  for _, m in ipairs(vim.fn.getmarklist(buf)) do
+    local name = m.mark:sub(2, 2)
+    if m.pos[2] == lnum and name:match("[a-z]") then
+      return "%#MarkSignHL#" .. name .. "%*"
+    end
+  end
+  local file = norm(vim.api.nvim_buf_get_name(buf))
+  for _, m in ipairs(vim.fn.getmarklist()) do
+    local name = m.mark:sub(2, 2)
+    if name:match("[A-Z0-9]") and m.pos[2] == lnum and norm(m.file) == file then
+      return "%#MarkSignHL#" .. name .. "%*"
+    end
+  end
+  return tostring(lnum)
+end
+
+vim.api.nvim_set_hl(0, "MarkSignHL", { fg = "#e67e80", bold = true })
+vim.opt.statuscolumn = "%s%=%{%v:lua.MarkStatusColumn()%} "
 
 vim.g.mkdp_port = "56777"
 vim.g.mkdp_echo_preview_url = 1

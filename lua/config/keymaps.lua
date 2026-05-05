@@ -4,6 +4,39 @@
 --
 vim.keymap.set("n", "S", "/<Space><BS>")
 
+vim.keymap.set("n", "dm", function()
+	local lnum = vim.api.nvim_win_get_cursor(0)[1]
+	local buf = vim.api.nvim_get_current_buf()
+	local function norm(p)
+		if not p or p == "" then
+			return ""
+		end
+		return vim.fn.fnamemodify(p, ":p")
+	end
+	local file = norm(vim.api.nvim_buf_get_name(buf))
+	local removed = {}
+	for _, m in ipairs(vim.fn.getmarklist(buf)) do
+		local name = m.mark:sub(2, 2)
+		if m.pos[2] == lnum and name:match("[a-z]") then
+			vim.cmd("delmarks " .. name)
+			table.insert(removed, name)
+		end
+	end
+	for _, m in ipairs(vim.fn.getmarklist()) do
+		local name = m.mark:sub(2, 2)
+		if name:match("[A-Z]") and m.pos[2] == lnum and norm(m.file) == file then
+			vim.cmd("delmarks " .. name)
+			table.insert(removed, name)
+		end
+	end
+	if #removed == 0 then
+		vim.notify("No mark on line " .. lnum, vim.log.levels.INFO)
+	else
+		vim.notify("Removed mark(s): " .. table.concat(removed, ", "), vim.log.levels.INFO)
+		vim.cmd("redrawstatus | redraw")
+	end
+end, { desc = "Delete mark(s) on current line" })
+
 vim.keymap.set("n", ",U", function()
 	if vim.g.colors_name == "catppuccin-latte" then
 		vim.o.background = "dark"
