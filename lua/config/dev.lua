@@ -299,3 +299,10 @@ vim.api.nvim_create_user_command(
   copy_rel_path,
   { desc = "Copy the relative path of the current file to clipboard" }
 )
+
+vim.opt.includeexpr = "substitute(v:fname, '^[ab]/', '', '')"
+
+vim.api.nvim_create_user_command("Review", function()
+  local mb = vim.fn.system("git merge-base origin/main HEAD"):gsub("%s+", "")
+  vim.cmd("DiffviewOpen " .. mb)
+end, {})

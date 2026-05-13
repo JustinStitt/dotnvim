@@ -321,6 +321,7 @@ return {
       vim.diagnostic.config({ virtual_text = false })
     end,
   },
+  {"sindrets/diffview.nvim"},
   -- {
   --   "OXY2DEV/markview.nvim",
   --   lazy = false,
