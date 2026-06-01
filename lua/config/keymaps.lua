@@ -237,6 +237,10 @@ vim.keymap.set("n", "<leader>th", function()
   vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 end, { desc = "[T]oggle Inlay [H]ints" })
 
+vim.keymap.set("n", "<leader>td", function()
+  require("tiny-inline-diagnostic").toggle()
+end, { desc = "[T]oggle [D]iagnostics (tiny-inline)" })
+
 vim.keymap.set(
   { "n", "o", "x" },
   "w",
