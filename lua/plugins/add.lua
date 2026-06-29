@@ -51,6 +51,10 @@ return {
   { "sindrets/winshift.nvim" },
   {
     "karb94/neoscroll.nvim",
+    cond = function()
+      local cwd = vim.fn.getcwd()
+      return string.find(cwd, "/google/src/cloud/") == nil and string.find(cwd, "/google3/") == nil
+    end,
     config = function()
       require("neoscroll").setup({
         hide_cursor = false,
@@ -93,7 +97,7 @@ return {
   { "tiagovla/scope.nvim" },
   { "tpope/vim-fugitive" },
   { "hiphish/rainbow-delimiters.nvim" },
-  { "akinsho/git-conflict.nvim", version = "*", config = true },
+  { "akinsho/git-conflict.nvim",      version = "*", config = true },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -184,65 +188,65 @@ return {
   --     "nvim-telescope/telescope.nvim",
   --   },
   -- },
-  {
-    "jake-stewart/multicursor.nvim",
-    branch = "1.0",
-    config = function()
-      local mc = require("multicursor-nvim")
-
-      mc.setup()
-
-      local set = vim.keymap.set
-
-      -- Add or skip cursor above/below the main cursor.
-
-      set({ "n", "v" }, "?", function()
-        mc.addCursor()
-      end)
-
-      -- Add or skip adding a new cursor by matching word/selection
-      set({ "n", "v" }, "<leader>n", function()
-        mc.matchAddCursor(1)
-      end)
-
-      -- Rotate the main cursor.
-      set({ "n", "v" }, "<left>", mc.nextCursor)
-      set({ "n", "v" }, "<right>", mc.prevCursor)
-
-      -- Delete the main cursor.
-      set({ "n", "v" }, "<leader>x", mc.deleteCursor)
-
-      -- Add and remove cursors with control + left click.
-      set("n", "<c-leftmouse>", mc.handleMouse)
-
-      set({ "n", "v" }, "<leader>X", function()
-        if mc.cursorsEnabled() then
-          mc.disableCursors()
-        else
-          mc.addCursor()
-        end
-      end)
-
-      set("n", "<esc>", function()
-        if not mc.cursorsEnabled() then
-          mc.enableCursors()
-        elseif mc.hasCursors() then
-          mc.clearCursors()
-        else
-          -- Default <esc> handler.
-        end
-      end)
-
-      -- Customize how cursors look.
-      local hl = vim.api.nvim_set_hl
-      hl(0, "MultiCursorCursor", { link = "Cursor" })
-      hl(0, "MultiCursorVisual", { link = "Visual" })
-      hl(0, "MultiCursorSign", { link = "SignColumn" })
-      hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
-      hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
-      hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
-    end,
-  },
+  -- {
+  --   "jake-stewart/multicursor.nvim",
+  --   branch = "1.0",
+  --   config = function()
+  --     local mc = require("multicursor-nvim")
+  --
+  --     mc.setup()
+  --
+  --     local set = vim.keymap.set
+  --
+  --     -- Add or skip cursor above/below the main cursor.
+  --
+  --     set({ "n", "v" }, "?", function()
+  --       mc.addCursor()
+  --     end)
+  --
+  --     -- Add or skip adding a new cursor by matching word/selection
+  --     set({ "n", "v" }, "<leader>n", function()
+  --       mc.matchAddCursor(1)
+  --     end)
+  --
+  --     -- Rotate the main cursor.
+  --     set({ "n", "v" }, "<left>", mc.nextCursor)
+  --     set({ "n", "v" }, "<right>", mc.prevCursor)
+  --
+  --     -- Delete the main cursor.
+  --     set({ "n", "v" }, "<leader>x", mc.deleteCursor)
+  --
+  --     -- Add and remove cursors with control + left click.
+  --     set("n", "<c-leftmouse>", mc.handleMouse)
+  --
+  --     set({ "n", "v" }, "<leader>X", function()
+  --       if mc.cursorsEnabled() then
+  --         mc.disableCursors()
+  --       else
+  --         mc.addCursor()
+  --       end
+  --     end)
+  --
+  --     set("n", "<esc>", function()
+  --       if not mc.cursorsEnabled() then
+  --         mc.enableCursors()
+  --       elseif mc.hasCursors() then
+  --         mc.clearCursors()
+  --       else
+  --         -- Default <esc> handler.
+  --       end
+  --     end)
+  --
+  --     -- Customize how cursors look.
+  --     local hl = vim.api.nvim_set_hl
+  --     hl(0, "MultiCursorCursor", { link = "Cursor" })
+  --     hl(0, "MultiCursorVisual", { link = "Visual" })
+  --     hl(0, "MultiCursorSign", { link = "SignColumn" })
+  --     hl(0, "MultiCursorDisabledCursor", { link = "Visual" })
+  --     hl(0, "MultiCursorDisabledVisual", { link = "Visual" })
+  --     hl(0, "MultiCursorDisabledSign", { link = "SignColumn" })
+  --   end,
+  -- },
   {
     "utilyre/barbecue.nvim",
     name = "barbecue",
@@ -299,19 +303,19 @@ return {
     end,
   },
   { "nvim-pack/nvim-spectre" },
-  {
-    "pwntester/octo.nvim",
-    requires = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-      -- OR 'ibhagwan/fzf-lua',
-      -- OR 'folke/snacks.nvim',
-      "nvim-tree/nvim-web-devicons",
-    },
-    config = function()
-      require("octo").setup()
-    end,
-  },
+  -- {
+  --   "pwntester/octo.nvim",
+  --   requires = {
+  --     "nvim-lua/plenary.nvim",
+  --     "nvim-telescope/telescope.nvim",
+  --     -- OR 'ibhagwan/fzf-lua',
+  --     -- OR 'folke/snacks.nvim',
+  --     "nvim-tree/nvim-web-devicons",
+  --   },
+  --   config = function()
+  --     require("octo").setup()
+  --   end,
+  -- },
   { "rafikdraoui/jj-diffconflicts" },
   {
     "rachartier/tiny-inline-diagnostic.nvim",
@@ -321,7 +325,8 @@ return {
       vim.diagnostic.config({ virtual_text = false })
     end,
   },
-  {"sindrets/diffview.nvim"},
+  { "sindrets/diffview.nvim" },
+  { "tpope/vim-sleuth" },
   -- {
   --   "OXY2DEV/markview.nvim",
   --   lazy = false,

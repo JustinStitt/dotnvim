@@ -263,7 +263,23 @@ return {
       },
       inlay_hints = { enabled = false },
       servers = {
-        basedpyright = {},
+        basedpyright = {
+          mason = false,
+          single_file_support = false,
+          root_dir = function(path_or_bufnr, on_dir)
+            local fname = type(path_or_bufnr) == "number" and vim.api.nvim_buf_get_name(path_or_bufnr) or path_or_bufnr
+            if not fname or fname == "" or string.find(fname, "/google/src/cloud/") or string.find(fname, "/google3/") then
+              if type(on_dir) == "function" then on_dir(nil) end
+              return nil
+            end
+            local root = require("lspconfig.util").root_pattern("pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git")(fname)
+            root = root or vim.fs.dirname(fname)
+            if type(on_dir) == "function" then
+              on_dir(root)
+            end
+            return root
+          end,
+        },
         ruff = { mason = false, autostart = false }, -- don't auto-install/use ruff
         pyright = { mason = false, autostart = false }, -- or pyright...
       },
