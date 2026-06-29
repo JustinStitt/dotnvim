@@ -43,49 +43,11 @@ function EnterLinuxMode()
 end
 
 local function is_in_pob_project()
-  local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
-  if filepath == "" then
-    return false
-  end
-  local current_dir = vim.fs.dirname(filepath)
-  if not current_dir then
-    return false
-  end
-  while true do
-    local basename = vim.fs.basename(current_dir)
-    if basename == "justinstitt-PathOfBuilding" then
-      return true
-    end
-    local parent_dir = vim.fs.dirname(current_dir)
-    if parent_dir == current_dir or parent_dir == nil or parent_dir == "" then
-      break
-    end
-    current_dir = parent_dir
-  end
-  return false
+  return vim.fn.filereadable(vim.fn.getcwd() .. "/.pob") == 1
 end
 
 local function is_in_linux_project()
-  local filepath = vim.api.nvim_buf_get_name(0) -- Get current buffer path
-  if filepath == "" then
-    return false
-  end
-  local current_dir = vim.fs.dirname(filepath)
-  if not current_dir then
-    return false
-  end
-  while true do
-    local basename = vim.fs.basename(current_dir)
-    if basename == "linux" then
-      return true
-    end
-    local parent_dir = vim.fs.dirname(current_dir)
-    if parent_dir == current_dir or parent_dir == nil or parent_dir == "" then
-      break
-    end
-    current_dir = parent_dir
-  end
-  return false
+  return vim.fn.filereadable(vim.fn.getcwd() .. "/.linux") == 1
 end
 
 vim.api.nvim_create_autocmd("VimEnter", {
@@ -184,9 +146,7 @@ vim.keymap.set("n", "<leader>lf", function()
   disable_format_on_save()
 end, { noremap = true })
 
-vim.api.nvim_command([[
-  set listchars=tab:\ \ 
-]])
+vim.cmd("set listchars=tab:\\ \\ ")
 
 vim.api.nvim_create_user_command("Lightmode", function()
   vim.cmd([[ colorscheme catppuccin-latte ]])

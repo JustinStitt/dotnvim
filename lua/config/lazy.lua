@@ -66,5 +66,6 @@ require("config.hlslens")
 require("config.dev")
 require("config.dap")
 require("config.fyler")
+require("config.minlsp")
 -- config.options.lua is automatically loaded, same with keymaps.lua, and
 -- autocmds.lua

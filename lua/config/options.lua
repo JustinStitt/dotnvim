@@ -55,7 +55,18 @@ vim.g.clipboard = {
     ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
   },
 }
-
+-- vim.g.clipboard = {
+--   name = "OSC 52 + wl-clipboard",
+--   copy = {
+--     ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+--     ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+--   },
+--   paste = {
+--     ["+"] = function()   return {}
+-- end,
+--     ["*"] = function()   return {}
+-- end,
+--   },}
 vim.opt.clipboard = "unnamedplus"
 
 -- LSP Server to use for Python (from https://www.lazyvim.org/extras/lang/python)
