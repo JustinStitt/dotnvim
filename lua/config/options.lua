@@ -40,7 +40,7 @@ vim.g.mkdp_port = "56777"
 vim.g.mkdp_echo_preview_url = 1
 
 vim.cmd([[ set background=dark ]])
-vim.g.lazyvim_python_lsp = "basedpyright"
+vim.g.lazyvim_python_lsp = "pyrefly"
 vim.g.snacks_animate = false -- because i want to use neoscroll
 
 -- clipboard over ssh with byobu/tmux

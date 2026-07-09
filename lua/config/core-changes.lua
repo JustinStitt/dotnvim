@@ -263,7 +263,8 @@ return {
       },
       inlay_hints = { enabled = false },
       servers = {
-        basedpyright = {},
+        pyrefly = {},
+        basedpyright = { mason = false, autostart = false },
         ruff = { mason = false, autostart = false }, -- don't auto-install/use ruff
         pyright = { mason = false, autostart = false }, -- or pyright...
       },
@@ -277,7 +278,7 @@ return {
         "stylua",
         "shellcheck",
         "shfmt",
-        "basedpyright",
+        "pyrefly",
         "black",
         "clangd",
         "gopls",
