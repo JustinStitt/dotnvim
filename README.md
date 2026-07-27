@@ -9,3 +9,4 @@ Still WIP.
 ### WSL 2
 * use XLaunch+XServer to stop nvim from bugging out
 
+
