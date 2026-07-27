@@ -263,7 +263,20 @@ return {
       },
       inlay_hints = { enabled = false },
       servers = {
-        pyrefly = {},
+        pyrefly = {
+          -- Type-check standalone/single files, not just files inside a project.
+          -- typeCheckingMode only applies to files with no pyrefly.toml/[tool.pyrefly];
+          -- projects with their own config still take precedence. Without this it
+          -- defaults to "auto" -> "basic" preset, which silences most errors on
+          -- loose scripts. Use "strict" for even more checks.
+          settings = {
+            python = {
+              pyrefly = {
+                typeCheckingMode = "default",
+              },
+            },
+          },
+        },
         basedpyright = { mason = false, autostart = false },
         ruff = { mason = false, autostart = false }, -- don't auto-install/use ruff
         pyright = { mason = false, autostart = false }, -- or pyright...
