@@ -62,7 +62,13 @@ return {
       {
         "<leader>se",
         function()
-          require("telescope.builtin").git_status({ cwd = false })
+          -- While a commit's gutter is active, search that commit's files instead.
+          local gitbase = require("config.gitbase")
+          if gitbase.active() then
+            gitbase.pick_changed_files()
+          else
+            require("telescope.builtin").git_status({ cwd = false })
+          end
         end,
         desc = "Search Git Status Files",
       },

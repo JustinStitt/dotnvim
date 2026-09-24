@@ -175,6 +175,22 @@ vim.keymap.set("n", "<leader>gk", "<cmd>:Gitsigns prev_hunk<CR>")
 vim.keymap.set("n", "<leader>gB", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gb", "<cmd>:Git blame<cr>")
 vim.keymap.set("n", "<leader>gd", "<cmd>:Gitsigns preview_hunk_inline<cr>")
+
+-- Show the gutter for a commit's own diff; <leader>gj/<leader>gk then walk its
+-- hunks and <leader>se lists the files it touched.
+vim.keymap.set("n", "<leader>gc", function()
+  require("config.gitbase").toggle()
+end, { desc = "Toggle gutter for HEAD commit" })
+vim.keymap.set("n", "<leader>gC", function()
+  require("config.gitbase").prompt()
+end, { desc = "Gutter for a specific commit" })
+vim.keymap.set("n", "<leader>gf", function()
+  require("config.gitbase").pick_commit()
+end, { desc = "Search commits, gutter the picked one" })
+-- <leader>gf was LazyVim's file history; keep it one key over.
+vim.keymap.set("n", "<leader>gF", function()
+  Snacks.picker.git_log_file()
+end, { desc = "Git Current File History" })
 vim.keymap.set("n", "<leader>sB", "<cmd>:Telescope buffers<cr>")
 vim.keymap.set("n", "<leader>so", "<cmd>:Telescope oldfiles<cr>")
 -- vim.keymap.set("n", "_", "<cmd>:Oil<cr>") -- Disabled, using Fyler now
