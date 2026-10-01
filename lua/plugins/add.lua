@@ -53,8 +53,17 @@ return {
     "karb94/neoscroll.nvim",
     cond = function()
       local cwd = vim.fn.getcwd()
-      return string.find(cwd, "/google/src/cloud/") == nil
-        and string.find(cwd, "/google3/") == nil
+      local bufname = vim.api.nvim_buf_get_name(0)
+      local path = (bufname and bufname ~= "")
+          and vim.fn.fnamemodify(bufname, ":p")
+        or cwd
+      local in_g3 = vim.startswith(path, "/google")
+        or path:find("/google3", 1, true) ~= nil
+        or path:find("google3/", 1, true) ~= nil
+        or vim.startswith(cwd, "/google")
+        or cwd:find("/google3", 1, true) ~= nil
+        or cwd:find("google3/", 1, true) ~= nil
+      return not in_g3
     end,
     config = function()
       require("neoscroll").setup({

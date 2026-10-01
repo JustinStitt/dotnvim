@@ -23,9 +23,16 @@ return {
   -- /google/src/cloud/*/*. Consider root_dir = "/google/src/cloud".
   root_dir = function(bufnr, cb)
     local fname = vim.api.nvim_buf_get_name(bufnr)
-    local root_dir = "/google"
-    if vim.startswith(fname, root_dir) then
-      cb(root_dir)
+    local path = (fname and fname ~= "") and vim.fn.fnamemodify(fname, ":p") or vim.fn.getcwd()
+    local cwd = vim.fn.getcwd()
+    if vim.startswith(path, "/google")
+      or path:find("/google3", 1, true) ~= nil
+      or path:find("google3/", 1, true) ~= nil
+      or vim.startswith(cwd, "/google")
+      or cwd:find("/google3", 1, true) ~= nil
+      or cwd:find("google3/", 1, true) ~= nil
+    then
+      cb("/google")
     end
   end,
 }

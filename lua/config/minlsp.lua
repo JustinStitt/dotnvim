@@ -80,7 +80,10 @@ vim.api.nvim_create_autocmd("LspAttach", {
 -- ciderlsp.lua from the folder this script is in on demand. Users who have
 -- copied ciderlsp to ~/.config/nvim/lsp/ciderlsp.lua can safely remove this.
 if vim.lsp.config["ciderlsp"] == nil then
-  vim.lsp.config["ciderlsp"] = assert(loadfile(vim.fs.joinpath(vim.fs.dirname(debug.getinfo(1, 'S').source:sub(2)), "ciderlsp.lua")), "could not load ciderlsp.lua, copy it to ~/.config/nvim/lsp/ciderlsp.lua")()
+  local lsp_path = vim.fn.stdpath("config") .. "/lsp/ciderlsp.lua"
+  if vim.uv.fs_stat(lsp_path) then
+    vim.lsp.config["ciderlsp"] = dofile(lsp_path)
+  end
 end
 
 -- Enable CiderLSP. You can also enable other LSPs that you've registered using

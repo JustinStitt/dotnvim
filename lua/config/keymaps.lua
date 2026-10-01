@@ -312,7 +312,14 @@ vim.keymap.set(
 
 local function is_in_google3()
   local cwd = vim.fn.getcwd()
-  return string.find(cwd, "/google/src/cloud/") ~= nil or string.find(cwd, "/google3/") ~= nil
+  local bufname = vim.api.nvim_buf_get_name(0)
+  local path = (bufname and bufname ~= "") and vim.fn.fnamemodify(bufname, ":p") or cwd
+  return vim.startswith(path, "/google")
+    or path:find("/google3", 1, true) ~= nil
+    or path:find("google3/", 1, true) ~= nil
+    or vim.startswith(cwd, "/google")
+    or cwd:find("/google3", 1, true) ~= nil
+    or cwd:find("google3/", 1, true) ~= nil
 end
 
 if not is_in_google3() then

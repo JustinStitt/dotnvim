@@ -320,6 +320,68 @@ return {
         pyright = { mason = false, autostart = false }, -- or pyright...
       },
     },
+    opts = function(_, opts)
+      local function is_google_workspace(path_or_bufnr)
+        local path
+        if type(path_or_bufnr) == "number" then
+          path = vim.api.nvim_buf_get_name(path_or_bufnr)
+        elseif type(path_or_bufnr) == "string" then
+          path = path_or_bufnr
+        end
+
+        if not path or path == "" then
+          path = vim.fn.getcwd()
+        else
+          path = vim.fn.fnamemodify(path, ":p")
+        end
+
+        local cwd = vim.fn.getcwd()
+
+        return vim.startswith(path, "/google")
+          or path:find("/google3", 1, true) ~= nil
+          or path:find("google3/", 1, true) ~= nil
+          or vim.startswith(cwd, "/google")
+          or cwd:find("/google3", 1, true) ~= nil
+          or cwd:find("google3/", 1, true) ~= nil
+      end
+
+      opts.diagnostics = opts.diagnostics or {}
+      opts.diagnostics.virtual_text = false -- because we use rachartier/tiny-inline-diagnostic.nvim now
+      opts.inlay_hints = opts.inlay_hints or {}
+      opts.inlay_hints.enabled = false
+
+      opts.servers = opts.servers or {}
+      opts.servers.basedpyright = {
+        mason = false,
+        single_file_support = false,
+        root_dir = function(fname, bufnr)
+          if is_google_workspace(fname or bufnr) then
+            return nil
+          end
+          local util = require("lspconfig.util")
+          local name = type(fname) == "string" and fname
+            or (fname and vim.api.nvim_buf_get_name(fname))
+            or (bufnr and vim.api.nvim_buf_get_name(bufnr))
+          if not name or name == "" then
+            return nil
+          end
+          return util.root_pattern(
+            "pyproject.toml",
+            "setup.py",
+            "setup.cfg",
+            "requirements.txt",
+            ".git"
+          )(name) or util.path.dirname(name)
+        end,
+        on_attach = function(client, bufnr)
+          if is_google_workspace(bufnr) then
+            vim.lsp.buf_detach_client(bufnr, client.id)
+          end
+        end,
+      }
+      opts.servers.ruff = { mason = false, autostart = false }
+      opts.servers.pyright = { mason = false, autostart = false }
+    end,
   },
   { "nvim-treesitter/nvim-treesitter-context" },
   {
